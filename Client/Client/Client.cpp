@@ -1,3 +1,5 @@
+#include "ClientApp.h"
 int main() {
-	return 0;
+	ClientApp app;
+	return app.main();
 }
