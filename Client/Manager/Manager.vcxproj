@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{c37d1d85-8ba6-47b0-a650-16d8295fa3ce}</ProjectGuid>
-    <RootNamespace>Client</RootNamespace>
+    <ProjectGuid>{aa0c145d-6664-459d-a0f5-01f35f562a9a}</ProjectGuid>
+    <RootNamespace>Manager</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -40,13 +40,13 @@
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -106,7 +106,6 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <AdditionalIncludeDirectories>$(SolutionDir);$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <EnableModules>true</EnableModules>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -123,7 +122,6 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <AdditionalIncludeDirectories>$(SolutionDir);$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <EnableModules>true</EnableModules>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -133,34 +131,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Client.cpp" />
-    <ClCompile Include="ClientApp.cpp" />
+    <ClInclude Include="VideoSourcesManager.h" />
+    <ClInclude Include="VideoSourcesManagerBuilder.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="VideoSourcesManager.cpp" />
+    <ClCompile Include="VideoSourcesManagerBuilder.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="ClientApp.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Interfaces\Interfaces.vcxproj">
-      <Project>{015e5269-3bbe-456b-b76e-88b412a4c08b}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\Manager\Manager.vcxproj">
-      <Project>{aa0c145d-6664-459d-a0f5-01f35f562a9a}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\Processor\Processor.vcxproj">
-      <Project>{11ded290-55b9-41dd-9d26-d2e4b7fffb81}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\Settings\Settings.vcxproj">
-      <Project>{1c1f691d-bd83-4c63-9a89-ba5098c6202f}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\Utilities\Utilities.vcxproj">
-      <Project>{52b4accf-fa73-4db7-80db-e14a5c3774e0}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\VideoSource\VideoSource.vcxproj">
-      <Project>{ad1b5212-de83-4443-b494-d8d76b8746e5}</Project>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
