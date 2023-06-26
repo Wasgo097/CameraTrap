@@ -14,8 +14,8 @@ ClientApp::ClientApp()
 	VideoSourcesManagerBuilder videoSourcesManagerBuilder{ _mainSettings.settingsRootDir };
 	_pVideoSourceManager = videoSourcesManagerBuilder.BuildVideoSourcesManager(_mainSettings.videoSourceSettingsPaths);
 	ProcessorBuilder processorBuilder(_mainSettings.settingsRootDir);
-	_diferenceProcessor = processorBuilder.BuildSimpleProcessor<DifferenceProcessor, DifferenceProcessorSettings, cv::Mat>(_mainSettings.differenceProcessorSettingsPath);
-	_moveDetectorProcessor = processorBuilder.BuildSimpleProcessor<MoveDetectorProcessor, MoveDetectorProcessorSettings, Objects>(_mainSettings.moveDetectorProcessorSettingsPath);
+	_diferenceProcessor = processorBuilder.BuildProcessorWithSettings<DifferenceProcessor, DifferenceProcessorSettings, cv::Mat>(_mainSettings.differenceProcessorSettingsPath);
+	_moveDetectorProcessor = processorBuilder.BuildProcessorWithSettings<MoveDetectorProcessor, MoveDetectorProcessorSettings, Objects>(_mainSettings.moveDetectorProcessorSettingsPath);
 	if (_mainSettings.debugDrawFrames)
 	{
 		_drawBuffer = std::optional<std::vector<cv::Mat>>{ _pVideoSourceManager->GetVideoSourcesCount() };
