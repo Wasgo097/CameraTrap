@@ -17,5 +17,5 @@ protected:
 
 	std::shared_ptr<DifferenceProcessor> _pDiferenceProcessor;
 	std::shared_ptr<MoveDetectorProcessor> _pMoveDetectorProcessor;
-	std::optional<std::vector<cv::Mat>> _drawBuffer;
+	std::vector<cv::Mat> _drawBuffer;
 };

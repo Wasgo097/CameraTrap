@@ -147,9 +147,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Objects.h" />
+    <ClInclude Include="Stopwatch.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Objects.cpp" />
+    <ClCompile Include="Stopwatch.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -10,4 +10,6 @@ void ClientKeyboardController::CheckKeys()
 	if (key <= 0)
 		return;
 	auto keyEnum{ static_cast<KeyboardKeys>(key) };
+	if (_keyboardMap.contains(keyEnum))
+		_keyboardMap[keyEnum]();
 }
