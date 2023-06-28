@@ -5,10 +5,9 @@
 class IntersectionProcessor :public IProcessor<std::vector<cv::Rect>>
 {
 public:
-	// Inherited via IProcessor
+	void SetRectToProcess(std::vector<cv::Rect>&& rectsToMerge);
 	void Process() override;
 	std::vector<cv::Rect> GetResult() const override;
-	void SetRectToProcess(std::vector<cv::Rect>&& rectsToMerge);
 protected:
 	std::vector<cv::Rect> _result;
 };

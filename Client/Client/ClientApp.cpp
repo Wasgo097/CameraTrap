@@ -3,7 +3,7 @@
 #include "Processor/ProcessorBuilder.h"
 #include "Manager/VideoSourcesManagerBuilder.h"
 #include "Utilities/DebugDrawer.h"
-//#define STOPWATCH
+#define STOPWATCH
 #ifdef STOPWATCH
 #include "Utilities/Stopwatch.h"
 #endif
@@ -17,12 +17,16 @@ ClientApp::ClientApp() :_pContext{ std::make_shared<ClientAppContext>() }
 
 	VideoSourcesManagerBuilder videoSourcesManagerBuilder{ _mainSettings.settingsRootDir };
 	_pVideoSourceManager = videoSourcesManagerBuilder.BuildVideoSourcesManager(_mainSettings.videoSourceSettingsPaths);
-
 	_pInputManager = std::make_unique<InputManager>(_pContext);
 
 	ProcessorBuilder processorBuilder(_mainSettings.settingsRootDir);
-	_pDiferenceProcessor = processorBuilder.BuildProcessorWithSettings<DifferenceProcessor, DifferenceProcessorSettings, cv::Mat>(_mainSettings.differenceProcessorSettingsPath);
-	_pMoveDetectorProcessor = processorBuilder.BuildProcessorWithSettings<MoveDetectorProcessor, MoveDetectorProcessorSettings, Objects>(_mainSettings.moveDetectorProcessorSettingsPath);
+
+	auto videoSourcesIds{ _pVideoSourceManager->GetVideoSourcesIds() };
+	for (const auto& id : videoSourcesIds)
+	{
+		_processorsPerId[id]._pDifferenceProcessor = processorBuilder.BuildProcessorWithSettings<DifferenceProcessor, DifferenceProcessorSettings, cv::Mat>(_mainSettings.differenceProcessorSettingsPath);
+		_processorsPerId[id]._pMoveDetectorProcessor = processorBuilder.BuildProcessorWithSettings<MoveDetectorProcessor, MoveDetectorProcessorSettings, Objects>(_mainSettings.moveDetectorProcessorSettingsPath);
+	}
 
 	auto videoSourcesCount{ _pVideoSourceManager->GetVideoSourcesCount() };
 	_drawBuffer = std::vector<cv::Mat>{ videoSourcesCount };
@@ -43,19 +47,20 @@ int ClientApp::main()
 			bool toDraw{ std::stoul(id) == _pContext->drawingIndex };
 			if (toDraw)
 				_drawBuffer[_pContext->drawingIndex] = frame->GetMatCopy();
-
-			_pDiferenceProcessor->AddNewFrame(frame);
-			_pDiferenceProcessor->Process();
-			_pMoveDetectorProcessor->SetNewDifferenceMat(_pDiferenceProcessor->GetResult());
-			_pMoveDetectorProcessor->Process();
+			const auto& processors{ _processorsPerId[id] };
+			processors._pDifferenceProcessor->AddNewFrame(frame);
+			processors._pDifferenceProcessor->Process();
+			processors._pMoveDetectorProcessor->SetNewDifferenceMat(processors._pDifferenceProcessor->GetResult());
+			processors._pMoveDetectorProcessor->Process();
+			if (toDraw)
+				drawer.DrawObjectsAndShowMat(_drawBuffer[_pContext->drawingIndex], processors._pMoveDetectorProcessor->GetResult(), "ClientApp");
 		}
+		_pInputManager->ServiceInputFromKeyboard();
 		framesMap = _pVideoSourceManager->GetFramesFromSources();
 #ifdef STOPWATCH
 		std::cout << "Loop time: " << watch.ElapsedMilliseconds() << std::endl;
 		watch.Reset();
 #endif
-		drawer.DrawObjectsAndShowMat(_drawBuffer[_pContext->drawingIndex], _pMoveDetectorProcessor->GetResult(), "ClientApp");
-		_pInputManager->ServiceInputFromKeyboard();
-		}
-	return 0;
 	}
+	return 0;
+}

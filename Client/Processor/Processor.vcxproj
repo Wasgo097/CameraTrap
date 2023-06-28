@@ -151,6 +151,7 @@
     <ClInclude Include="IntersectionProcessor.h" />
     <ClInclude Include="MoveDetectorProcessor.h" />
     <ClInclude Include="ProcessorBuilder.h" />
+    <ClInclude Include="ProcessorHelper.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DifferenceProcessor.cpp" />

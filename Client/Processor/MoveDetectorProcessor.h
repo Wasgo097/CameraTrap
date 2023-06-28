@@ -8,7 +8,6 @@ class MoveDetectorProcessor :public IProcessor <Objects>
 public:
 	MoveDetectorProcessor(MoveDetectorProcessorSettings settings);
 	void SetNewDifferenceMat(const cv::Mat& differenceMat);
-	// Inherited via IProcessor
 	void Process() override;
 	Objects GetResult() const override;
 protected:

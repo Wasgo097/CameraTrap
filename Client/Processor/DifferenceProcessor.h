@@ -10,8 +10,8 @@ public:
 	void Process() override;
 	cv::Mat GetResult()const override;
 protected:
-	std::shared_ptr<IFrame> _currentImage;
-	std::shared_ptr<IFrame> _previousImage;
+	std::shared_ptr<IFrame> _pCurrentImage;
+	std::shared_ptr<IFrame> _pPreviousImage;
 	cv::Mat _currentMat;
 	cv::Mat _previousMat;
 	cv::Mat _difference;

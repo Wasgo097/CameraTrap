@@ -15,3 +15,12 @@ size_t VideoSourcesManager::GetVideoSourcesCount()const
 {
 	return _videoSources.size();
 }
+
+std::vector<std::string> VideoSourcesManager::GetVideoSourcesIds() const
+{
+	auto count{ GetVideoSourcesCount() };
+	std::vector<std::string> ids(count);
+	for (size_t i{ 0ull }; i < count; i++)
+		ids[i] = _videoSources[i]->GetId();
+	return ids;
+}

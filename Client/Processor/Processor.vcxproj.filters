@@ -30,6 +30,9 @@
     <ClInclude Include="IntersectionProcessor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ProcessorHelper.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DifferenceProcessor.cpp">
