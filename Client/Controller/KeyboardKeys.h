@@ -1,8 +1,8 @@
 #pragma once
 enum class KeyboardKeys
 {
-	Left,
-	Right,
-	Q,
-	V
+	Left = 2424832,
+	Right = 2555904,
+	Q = 113,
+	//V = 118
 };

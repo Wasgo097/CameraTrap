@@ -1,54 +1,61 @@
 #include "ClientApp.h"
 #include "Settings/SettingsBuilder.h"
-#include "Processor/DebugDrawer.h"
 #include "Processor/ProcessorBuilder.h"
 #include "Manager/VideoSourcesManagerBuilder.h"
+#include "Utilities/DebugDrawer.h"
+//#define STOPWATCH
+#ifdef STOPWATCH
 #include "Utilities/Stopwatch.h"
-#include <nlohmann/json.hpp>
-using namespace nlohmann;
-ClientApp::ClientApp()
+#endif
+ClientApp::ClientApp() :_pContext{ std::make_shared<ClientAppContext>() }
 {
 	const std::string mainSettingsDir{ "settings\\" };
 	const std::string mainSettingsFile{ "mainsettings.json" };
+
 	SettingsBuilder settingsBuilder(mainSettingsDir);
 	_mainSettings = settingsBuilder.GetSettingsFromFile<MainSettings>(mainSettingsFile);
+
 	VideoSourcesManagerBuilder videoSourcesManagerBuilder{ _mainSettings.settingsRootDir };
 	_pVideoSourceManager = videoSourcesManagerBuilder.BuildVideoSourcesManager(_mainSettings.videoSourceSettingsPaths);
+
+	_pInputManager = std::make_unique<InputManager>(_pContext);
+
 	ProcessorBuilder processorBuilder(_mainSettings.settingsRootDir);
 	_pDiferenceProcessor = processorBuilder.BuildProcessorWithSettings<DifferenceProcessor, DifferenceProcessorSettings, cv::Mat>(_mainSettings.differenceProcessorSettingsPath);
 	_pMoveDetectorProcessor = processorBuilder.BuildProcessorWithSettings<MoveDetectorProcessor, MoveDetectorProcessorSettings, Objects>(_mainSettings.moveDetectorProcessorSettingsPath);
-	if (_mainSettings.debugDrawFrames)
-		_drawBuffer = std::vector<cv::Mat>{ _pVideoSourceManager->GetVideoSourcesCount() };
+
+	auto videoSourcesCount{ _pVideoSourceManager->GetVideoSourcesCount() };
+	_drawBuffer = std::vector<cv::Mat>{ videoSourcesCount };
+	_pContext->maxDrawingIndex = videoSourcesCount;
 }
 int ClientApp::main()
 {
 	auto framesMap = _pVideoSourceManager->GetFramesFromSources();
-	int key{ 0 };
 	DebugDrawer drawer;
+#ifdef STOPWATCH
 	Stopwatch watch;
 	watch.Start();
-	while (!framesMap.empty())
+#endif
+	while (!_pContext->quit)
 	{
-		size_t drawBufferIndex{ 0 };
 		for (const auto& [id, frame] : framesMap)
 		{
-			if (_mainSettings.debugDrawFrames)
-				_drawBuffer[drawBufferIndex] = frame->GetMatCopy();
+			bool toDraw{ std::stoul(id) == _pContext->drawingIndex };
+			if (toDraw)
+				_drawBuffer[_pContext->drawingIndex] = frame->GetMatCopy();
+
 			_pDiferenceProcessor->AddNewFrame(frame);
 			_pDiferenceProcessor->Process();
 			_pMoveDetectorProcessor->SetNewDifferenceMat(_pDiferenceProcessor->GetResult());
 			_pMoveDetectorProcessor->Process();
-			if (_mainSettings.debugDrawFrames)
-				key = drawer.DrawObjectsAndShowMat(_drawBuffer[drawBufferIndex], _pMoveDetectorProcessor->GetResult(), id);
-			else
-				key = cv::waitKey(1);
-			drawBufferIndex++;
 		}
-		if (key >= 0)
-			break;
 		framesMap = _pVideoSourceManager->GetFramesFromSources();
+#ifdef STOPWATCH
 		std::cout << "Loop time: " << watch.ElapsedMilliseconds() << std::endl;
 		watch.Reset();
-	}
+#endif
+		drawer.DrawObjectsAndShowMat(_drawBuffer[_pContext->drawingIndex], _pMoveDetectorProcessor->GetResult(), "ClientApp");
+		_pInputManager->ServiceInputFromKeyboard();
+		}
 	return 0;
-}
+	}

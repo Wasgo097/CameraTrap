@@ -146,10 +146,13 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ClientAppContext.h" />
+    <ClInclude Include="DebugDrawer.h" />
     <ClInclude Include="Objects.h" />
     <ClInclude Include="Stopwatch.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="DebugDrawer.cpp" />
     <ClCompile Include="Objects.cpp" />
     <ClCompile Include="Stopwatch.cpp" />
   </ItemGroup>

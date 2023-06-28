@@ -8,6 +8,5 @@ struct MainSettings
 	std::vector<std::string> videoSourceSettingsPaths;
 	std::string differenceProcessorSettingsPath;
 	std::string moveDetectorProcessorSettingsPath;
-	bool debugDrawFrames{ false };
 };
-NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(MainSettings, settingsRootDir, videoSourceSettingsPaths, differenceProcessorSettingsPath, moveDetectorProcessorSettingsPath, debugDrawFrames)
+NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(MainSettings, settingsRootDir, videoSourceSettingsPaths, differenceProcessorSettingsPath, moveDetectorProcessorSettingsPath)

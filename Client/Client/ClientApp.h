@@ -5,6 +5,8 @@
 
 #include "Processor/DifferenceProcessor.h"
 #include "Processor/MoveDetectorProcessor.h"
+
+#include "Utilities/ClientAppContext.h"
 class ClientApp
 {
 public:
@@ -17,5 +19,6 @@ protected:
 
 	std::shared_ptr<DifferenceProcessor> _pDiferenceProcessor;
 	std::shared_ptr<MoveDetectorProcessor> _pMoveDetectorProcessor;
+	std::shared_ptr<ClientAppContext> _pContext;
 	std::vector<cv::Mat> _drawBuffer;
 };

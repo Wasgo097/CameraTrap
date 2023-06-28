@@ -4,10 +4,10 @@ ClientKeyboardController::ClientKeyboardController(std::unordered_map<KeyboardKe
 {
 }
 
-void ClientKeyboardController::CheckKeys()
+void ClientKeyboardController::Check()
 {
-	auto key{ cv::waitKey(1) };
-	if (key <= 0)
+	auto key{ cv::waitKeyEx(1) };
+	if (key == -1)
 		return;
 	auto keyEnum{ static_cast<KeyboardKeys>(key) };
 	if (_keyboardMap.contains(keyEnum))

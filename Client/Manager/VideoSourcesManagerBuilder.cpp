@@ -7,6 +7,5 @@ VideoSourcesManagerBuilder::VideoSourcesManagerBuilder(std::string videoSourcesR
 std::unique_ptr<VideoSourcesManager> VideoSourcesManagerBuilder::BuildVideoSourcesManager(const std::vector<std::string>& videoSourcesPaths) const
 {
 	VideoSourceBuilder videoSourceBuilder(_videoSourcesRoot);
-	auto videoSources{ videoSourceBuilder.BuildVideoSources(videoSourcesPaths) };
-	return std::make_unique<VideoSourcesManager>(std::move(videoSources));
+	return std::make_unique<VideoSourcesManager>(videoSourceBuilder.BuildVideoSources(videoSourcesPaths));
 }

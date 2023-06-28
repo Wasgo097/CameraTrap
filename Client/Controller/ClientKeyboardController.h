@@ -6,7 +6,7 @@ class ClientKeyboardController
 {
 public:
 	ClientKeyboardController(std::unordered_map<KeyboardKeys, std::function<void()>>&& keyboardMap);
-	void CheckKeys();
+	void Check();
 protected:
 	std::unordered_map<KeyboardKeys, std::function<void()>> _keyboardMap;
 };

@@ -147,14 +147,12 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="DebugDrawer.h" />
     <ClInclude Include="DifferenceProcessor.h" />
     <ClInclude Include="IntersectionProcessor.h" />
     <ClInclude Include="MoveDetectorProcessor.h" />
     <ClInclude Include="ProcessorBuilder.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="DebugDrawer.cpp" />
     <ClCompile Include="DifferenceProcessor.cpp" />
     <ClCompile Include="IntersectionProcessor.cpp" />
     <ClCompile Include="MoveDetectorProcessor.cpp" />
