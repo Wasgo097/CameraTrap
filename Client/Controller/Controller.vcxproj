@@ -21,10 +21,15 @@
   <ItemGroup>
     <ClInclude Include="ClientKeyboardController.h" />
     <ClInclude Include="ClientMouseController.h" />
+    <ClInclude Include="KeyboardKeys.h" />
+    <ClInclude Include="MouseButtons.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ClientKeyboardController.cpp" />
     <ClCompile Include="ClientMouseController.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
@@ -121,6 +126,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <LanguageStandard>stdcpplatest</LanguageStandard>
+      <AdditionalIncludeDirectories>$(SolutionDir);$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -139,6 +145,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <LanguageStandard>stdcpplatest</LanguageStandard>
+      <AdditionalIncludeDirectories>$(SolutionDir);$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -150,5 +157,12 @@
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
+    <Import Project="..\packages\MyOpenCv.4.7.0\build\native\MyOpenCv.targets" Condition="Exists('..\packages\MyOpenCv.4.7.0\build\native\MyOpenCv.targets')" />
   </ImportGroup>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\MyOpenCv.4.7.0\build\native\MyOpenCv.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MyOpenCv.4.7.0\build\native\MyOpenCv.targets'))" />
+  </Target>
 </Project>

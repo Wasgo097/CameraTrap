@@ -14,12 +14,10 @@ ClientApp::ClientApp()
 	VideoSourcesManagerBuilder videoSourcesManagerBuilder{ _mainSettings.settingsRootDir };
 	_pVideoSourceManager = videoSourcesManagerBuilder.BuildVideoSourcesManager(_mainSettings.videoSourceSettingsPaths);
 	ProcessorBuilder processorBuilder(_mainSettings.settingsRootDir);
-	_diferenceProcessor = processorBuilder.BuildProcessorWithSettings<DifferenceProcessor, DifferenceProcessorSettings, cv::Mat>(_mainSettings.differenceProcessorSettingsPath);
-	_moveDetectorProcessor = processorBuilder.BuildProcessorWithSettings<MoveDetectorProcessor, MoveDetectorProcessorSettings, Objects>(_mainSettings.moveDetectorProcessorSettingsPath);
+	_pDiferenceProcessor = processorBuilder.BuildProcessorWithSettings<DifferenceProcessor, DifferenceProcessorSettings, cv::Mat>(_mainSettings.differenceProcessorSettingsPath);
+	_pMoveDetectorProcessor = processorBuilder.BuildProcessorWithSettings<MoveDetectorProcessor, MoveDetectorProcessorSettings, Objects>(_mainSettings.moveDetectorProcessorSettingsPath);
 	if (_mainSettings.debugDrawFrames)
-	{
-		_drawBuffer = std::optional<std::vector<cv::Mat>>{ _pVideoSourceManager->GetVideoSourcesCount() };
-	}
+		_drawBuffer = std::vector<cv::Mat>{ _pVideoSourceManager->GetVideoSourcesCount() };
 }
 int ClientApp::main()
 {
@@ -41,6 +39,7 @@ int ClientApp::main()
 				key = drawer.DrawObjectsAndShowMat((*_drawBuffer)[drawBufferIndex], _moveDetectorProcessor->GetResult(), id);
 			else
 				key = cv::waitKey(1);
+			drawBufferIndex++;
 		}
 		if (key >= 0)
 			break;

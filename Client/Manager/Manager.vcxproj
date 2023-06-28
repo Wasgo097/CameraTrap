@@ -131,10 +131,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="InputManager.h" />
     <ClInclude Include="VideoSourcesManager.h" />
     <ClInclude Include="VideoSourcesManagerBuilder.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="VideoSourcesManager.cpp" />
     <ClCompile Include="VideoSourcesManagerBuilder.cpp" />
   </ItemGroup>
