@@ -2,10 +2,9 @@
 #include "Settings/MainSettings.h"
 #include "Manager/VideoSourcesManager.h"
 #include "Manager/InputManager.h"
-
 #include "Processor/ProcessorHelper.h"
-
 #include "Utilities/ClientAppContext.h"
+
 class ClientApp
 {
 public:

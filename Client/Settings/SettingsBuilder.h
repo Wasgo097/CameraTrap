@@ -1,12 +1,12 @@
 #pragma once
-#include <string>
-#include <filesystem>
-#include <fstream>
 #include "CameraVideoSourceSettings.h"
 #include "DifferenceProcessorSettings.h"
 #include "FileVideoSourceSettings.h"
 #include "MainSettings.h"
 #include "MoveDetectorProcessorSettings.h"
+#include <string>
+#include <filesystem>
+#include <fstream>
 class SettingsBuilder
 {
 public:

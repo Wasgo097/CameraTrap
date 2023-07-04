@@ -148,14 +148,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DifferenceProcessor.h" />
-    <ClInclude Include="IntersectionProcessor.h" />
     <ClInclude Include="MoveDetectorProcessor.h" />
     <ClInclude Include="ProcessorBuilder.h" />
     <ClInclude Include="ProcessorHelper.h" />
+    <ClInclude Include="ProcessorStructs.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DifferenceProcessor.cpp" />
-    <ClCompile Include="IntersectionProcessor.cpp" />
     <ClCompile Include="MoveDetectorProcessor.cpp" />
     <ClCompile Include="ProcessorBuilder.cpp" />
   </ItemGroup>

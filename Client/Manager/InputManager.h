@@ -1,8 +1,8 @@
 #pragma once
-#include <memory>
 #include "Controller/ClientKeyboardController.h"
 #include "Controller/ClientMouseController.h"
 #include "Utilities/ClientAppContext.h"
+#include <memory>
 class InputManager
 {
 public:

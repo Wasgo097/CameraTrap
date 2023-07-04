@@ -149,8 +149,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="IFrame.h" />
-    <ClInclude Include="IObservable.h" />
-    <ClInclude Include="IObserver.h" />
     <ClInclude Include="IProcessor.h" />
     <ClInclude Include="IVideoSource.h" />
   </ItemGroup>

@@ -13,7 +13,7 @@ public:
 	}
 	void RemoveObserver(const std::shared_ptr<ObserverType>& observerToRemove) override
 	{
-		auto toRemove{ std::ranges::find_if(_observers,[=observer](const std::shared_ptr<ObserverType>& current)
+		auto toRemove{ std::ranges::find_if(_observers,[=observer](const std::weak_ptr<ObserverType>& current)
 			{
 				return current == toRemove;
 			}) };
@@ -21,5 +21,5 @@ public:
 			_observers.erase(toRemove)
 	}
 protected:
-	std::unordered_set<std::shared_ptr<ObserverType>> _observers;
+	std::unordered_set<std::weak_ptr<ObserverType>> _observers;
 };

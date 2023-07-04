@@ -6,7 +6,7 @@ DifferenceProcessor::DifferenceProcessor(DifferenceProcessorSettings settings) :
 {
 }
 
-void DifferenceProcessor::AddNewFrame(std::shared_ptr<IFrame> newFrame)
+void DifferenceProcessor::SetInput(std::shared_ptr<IFrame> newFrame)
 {
 	_pPreviousImage = std::move(_pCurrentImage);
 	_pCurrentImage = std::move(newFrame);
@@ -22,7 +22,7 @@ void DifferenceProcessor::Process()
 	cv::threshold(_difference, _treshold, _settings.threshold, 255, cv::THRESH_BINARY);
 }
 
-cv::Mat DifferenceProcessor::GetResult() const
+DifferenceResult DifferenceProcessor::GetResult() const
 {
-	return _treshold.clone();
+	return DifferenceResult{ _treshold.clone() };
 }

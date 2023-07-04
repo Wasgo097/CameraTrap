@@ -1,15 +1,15 @@
 #include "Objects.h"
 #include <algorithm>
-Objects::Objects(size_t initObjectsBufferSize, size_t maxObjectsBufferSize) :_maxObjects{ maxObjectsBufferSize }
+Objects::Objects(size_t initObjectsBufferSize, size_t maxObjectsBufferSize) :_MAXOBJECTS{ maxObjectsBufferSize }
 {
-	_objects.reserve(std::min(_maxObjects, initObjectsBufferSize));
+	_objects.reserve(std::min(_MAXOBJECTS, initObjectsBufferSize));
 }
 
 bool Objects::PushNewObject(cv::Rect newObject)
 {
-	if (_maxObjects > 0 and _objects.size() == _maxObjects)
+	if (_MAXOBJECTS > 0 and _objects.size() == _MAXOBJECTS)
 		return false;
-	_objects.emplace_back(newObject);
+	_objects.emplace_back(std::move(newObject));
 	return true;
 }
 

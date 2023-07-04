@@ -1,21 +1,16 @@
 #include "MoveDetectorProcessor.h"
 #include <opencv2/imgproc.hpp>
 #include <algorithm>
-#include "IntersectionProcessor.h"
 #include "ProcessorBuilder.h"
-MoveDetectorProcessor::MoveDetectorProcessor(MoveDetectorProcessorSettings settings) :_settings{ std::move(settings) }
+MoveDetectorProcessor::MoveDetectorProcessor(MoveDetectorProcessorSettings settings) :
+	_result{ .movingObjects = Objects(_settings.initBufferSize, _settings.maxObjectsCount) },
+	_settings{ std::move(settings) }
 {
-	_result = { _settings.initBufferSize,_settings.maxObjectsCount };
-	if (_settings.mergeIntersectedObjects)
-	{
-		ProcessorBuilder builder;
-		_intersectionProcessor = builder.BuildProcessor<IntersectionProcessor, std::vector<cv::Rect>>();
-	}
 }
 
-void MoveDetectorProcessor::SetNewDifferenceMat(const cv::Mat& differenceMat)
+void MoveDetectorProcessor::SetInput(DifferenceResult differenceMat)
 {
-	_differenceMatBuffer = differenceMat.clone();
+	_differenceMatBuffer = std::move(differenceMat.differenceResult);
 	_enableProcess = true;
 }
 
@@ -29,31 +24,25 @@ void MoveDetectorProcessor::Process()
 		_tempObjects.emplace_back(cv::boundingRect(std::move(objectPoints)));
 	ManageTempObjects();
 	for (auto&& object : _tempObjects)
-		if (!_result.PushNewObject(std::move(object)))
+		if (!_result.movingObjects.PushNewObject(std::move(object)))
 			break;
 	_enableProcess = false;
 }
 
-Objects MoveDetectorProcessor::GetResult() const
+MoveDetectionResult MoveDetectorProcessor::GetResult() const
 {
 	return _result;
 }
 
 void MoveDetectorProcessor::ClearInternalBuffers()
 {
-	_result.ClearAllObjects();
+	_result.movingObjects.ClearAllObjects();
 	_contours.clear();
 	_tempObjects.clear();
 }
 
 void MoveDetectorProcessor::ManageTempObjects()
 {
-	if (_intersectionProcessor)
-	{
-		_intersectionProcessor->SetRectToProcess(std::move(_tempObjects));
-		_intersectionProcessor->Process();
-		_tempObjects = _intersectionProcessor->GetResult();
-	}
 	if (_settings.minObjectArea > 0)
 	{
 		auto rangeToRemove{ std::ranges::remove_if(_tempObjects, [this](const auto& rect)

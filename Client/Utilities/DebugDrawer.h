@@ -1,7 +1,7 @@
 #pragma once
+#include "Objects.h"
 #include <opencv2/opencv.hpp>
 #include <string>
-#include "Objects.h"
 class DebugDrawer
 {
 public:
