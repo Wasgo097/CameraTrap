@@ -3,7 +3,7 @@
 #include <algorithm>
 #include "ProcessorBuilder.h"
 MoveDetectorProcessor::MoveDetectorProcessor(MoveDetectorProcessorSettings settings) :
-	_result{ .movingObjects = Objects(_settings.initBufferSize, _settings.maxObjectsCount) },
+	_result{ .moveDetectionResult = Objects(_settings.initBufferSize, _settings.maxObjectsCount) },
 	_settings{ std::move(settings) }
 {
 }
@@ -24,7 +24,7 @@ void MoveDetectorProcessor::Process()
 		_tempObjects.emplace_back(cv::boundingRect(std::move(objectPoints)));
 	ManageTempObjects();
 	for (auto&& object : _tempObjects)
-		if (!_result.movingObjects.PushNewObject(std::move(object)))
+		if (!_result.moveDetectionResult.PushNewObject(std::move(object)))
 			break;
 	_enableProcess = false;
 }
@@ -36,7 +36,7 @@ MoveDetectionResult MoveDetectorProcessor::GetResult() const
 
 void MoveDetectorProcessor::ClearInternalBuffers()
 {
-	_result.movingObjects.ClearAllObjects();
+	_result.moveDetectionResult.ClearAllObjects();
 	_contours.clear();
 	_tempObjects.clear();
 }

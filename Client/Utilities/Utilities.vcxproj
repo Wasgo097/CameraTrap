@@ -150,6 +150,7 @@
     <ClInclude Include="DebugDrawer.h" />
     <ClInclude Include="Objects.h" />
     <ClInclude Include="Stopwatch.h" />
+    <ClInclude Include="ThreadsResource.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DebugDrawer.cpp" />

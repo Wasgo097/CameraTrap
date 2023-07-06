@@ -30,6 +30,9 @@
     <ClInclude Include="ClientAppContext.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ThreadsResource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Objects.cpp">

@@ -8,5 +8,5 @@ struct DifferenceResult
 
 struct MoveDetectionResult
 {
-	Objects movingObjects;
+	Objects moveDetectionResult;
 };

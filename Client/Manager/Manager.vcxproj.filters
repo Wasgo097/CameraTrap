@@ -18,10 +18,16 @@
     <ClInclude Include="VideoSourcesManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="VideoSourcesManagerBuilder.h">
+    <ClInclude Include="ManagerBuilder.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="InputManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CalculationManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ProcessorsManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -29,10 +35,16 @@
     <ClCompile Include="VideoSourcesManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="VideoSourcesManagerBuilder.cpp">
+    <ClCompile Include="ManagerBuilder.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="InputManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CalculationManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ProcessorsManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
