@@ -1,9 +1,9 @@
 #pragma once
-template<class T, class U>
-class IProcessor {
+#include "Utilities/SingleObservableBasic.h"
+template<class ProcessorResult, class ProcessorInput>
+class IProcessor :public SingleObservableBasic<ProcessorResult>, public IObserver<ProcessorInput> {
 public:
 	~IProcessor() = default;
-	virtual void SetInput(U input) = 0;
-	virtual void Process() = 0;
-	virtual T GetResult()const = 0;
+	virtual void SetInput(ProcessorInput input) = 0;
+	virtual ProcessorResult Process() = 0;
 };

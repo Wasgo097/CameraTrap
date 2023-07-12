@@ -7,14 +7,13 @@ class MoveDetectorProcessor :public IProcessor <MoveDetectionResult, DifferenceR
 public:
 	MoveDetectorProcessor(MoveDetectorProcessorSettings settings);
 	void SetInput(DifferenceResult differenceMat) override;
-	void Process() override;
-	MoveDetectionResult GetResult() const override;
+	MoveDetectionResult Process() override;
+	void Notify(DifferenceResult param) override;
 protected:
 	void ClearInternalBuffers();
 	void ManageTempObjects();
 
 	MoveDetectorProcessorSettings _settings;
-	bool _enableProcess{ false };
 	cv::Mat _differenceMatBuffer;
 	MoveDetectionResult _result;
 	std::vector<std::vector<cv::Point>> _contours;

@@ -4,5 +4,5 @@ class IObserver
 {
 public:
 	virtual ~IObserver() = default;
-	void Notify(const NotificationParamType& param) = 0;
+	virtual void Notify(NotificationParamType param) = 0;
 };

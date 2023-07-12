@@ -149,6 +149,8 @@
     <ClInclude Include="ClientAppContext.h" />
     <ClInclude Include="DebugDrawer.h" />
     <ClInclude Include="Objects.h" />
+    <ClInclude Include="MultipleObservableBasic.h" />
+    <ClInclude Include="SingleObservableBasic.h" />
     <ClInclude Include="Stopwatch.h" />
     <ClInclude Include="ThreadsResource.h" />
   </ItemGroup>

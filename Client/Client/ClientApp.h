@@ -13,5 +13,4 @@ protected:
 	std::unique_ptr<InputManager> _pInputManager;
 	std::unique_ptr<CalculationManager> _pCalculationManager;
 	ThreadsResourcePtr<ClientAppContext> _pContext;
-	std::vector<cv::Mat> _drawBuffer;
 };

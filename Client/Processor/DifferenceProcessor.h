@@ -8,8 +8,8 @@ class DifferenceProcessor :public IProcessor<DifferenceResult, std::shared_ptr<I
 public:
 	DifferenceProcessor(DifferenceProcessorSettings settings);
 	void SetInput(std::shared_ptr<IFrame> input) override;
-	void Process() override;
-	DifferenceResult GetResult()const override;
+	DifferenceResult Process() override;
+	void Notify(std::shared_ptr<IFrame> param) override;
 protected:
 	DifferenceProcessorSettings _settings;
 	std::shared_ptr<IFrame> _pCurrentImage;
@@ -18,4 +18,7 @@ protected:
 	cv::Mat _previousMat;
 	cv::Mat _difference;
 	cv::Mat _treshold;
+
+
+
 };

@@ -18,18 +18,22 @@ ClientApp::ClientApp() :_pContext{ std::make_shared<ClientAppContext>() }
 	_pInputManager = managerBuilder.BuildInputManager();
 	_pCalculationManager = managerBuilder.BuildCalculationManager();
 	auto videoSourcesCount{ _pCalculationManager->GetVideoSourcesSize() };
-	_drawBuffer = std::vector<cv::Mat>{ videoSourcesCount };
 	_pContext._pVal->maxDrawingIndex = videoSourcesCount;
 }
 int ClientApp::main()
 {
+	_pCalculationManager->StartCalculation();
 	DebugDrawer drawer;
 #ifdef STOPWATCH
 	Stopwatch loopWatch, processingWatch;
 	loopWatch.Start();
 #endif
+	cv::Mat drawingMat;
 	while (!_pContext._pVal->quit)
 	{
+		drawingMat = _pCalculationManager->GetMatFromBuffer().clone();
+		if (!drawingMat.empty())
+			drawer.ShowMat(drawingMat, "Window");
 #ifdef STOPWATCH
 		processingWatch.Start();
 #endif
@@ -55,5 +59,6 @@ int ClientApp::main()
 		loopWatch.Reset();
 #endif
 	}
+	_pCalculationManager->StopCalculation();
 	return 0;
 }

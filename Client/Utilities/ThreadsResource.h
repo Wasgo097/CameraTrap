@@ -9,3 +9,11 @@ struct ThreadsResourcePtr
 	std::shared_ptr<T> _pVal;
 	std::shared_ptr<std::shared_mutex> _pMtx{std::make_shared<std::shared_mutex>()};
 };
+template<typename T>
+struct ThreadsResourceVal
+{
+	ThreadsResourceVal(T val) :_val{ std::move(val) }
+	{}
+	T _val;
+	std::shared_ptr<std::shared_mutex> _pMtx{std::make_shared<std::shared_mutex>()};
+};

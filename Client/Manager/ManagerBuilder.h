@@ -2,6 +2,7 @@
 #include "VideoSourcesManager.h"
 #include "InputManager.h"
 #include "CalculationManager.h"
+#include "ProcessorsManager.h"
 #include "Settings/MainSettings.h"
 class ManagerBuilder
 {
@@ -11,6 +12,7 @@ public:
 	std::unique_ptr<InputManager> BuildInputManager()const;
 protected:
 	std::unique_ptr<VideoSourcesManager> BuildVideoSourcesManager()const;
+	std::unique_ptr<ProcessorsManager> BuildProcessorsManager(const std::unique_ptr<VideoSourcesManager>& videoSourcesManager)const;
 	const MainSettings& _mainSettings;
 	ThreadsResourcePtr<ClientAppContext> _pClientAppContext;
 };
