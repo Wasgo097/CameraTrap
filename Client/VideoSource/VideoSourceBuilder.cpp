@@ -1,6 +1,7 @@
 #include "VideoSourceBuilder.h"
 #include "CameraVideoSource.h"
 #include <filesystem>
+#include <iostream>
 #include <fstream>
 #include <nlohmann/json.hpp>
 VideoSourceBuilder::VideoSourceBuilder(std::string videoSourceSettingsRootPath) :_settingsBuilder{ std::move(videoSourceSettingsRootPath) }
@@ -14,9 +15,9 @@ std::shared_ptr<IVideoSource> VideoSourceBuilder::BuildVideoSource(const std::st
 	{
 		result = std::make_shared<CameraVideoSource>(_settingsBuilder.GetSettingsFromFile<CameraVideoSourceSettings>(path));
 	}
-	catch (...) 
+	catch (const std::exception& ex) 
 	{
-
+		std::cerr << "Error: " << ex.what() << " VideoSourceBuilder::BuildVideoSource\n";
 	}
 	return result;
 }

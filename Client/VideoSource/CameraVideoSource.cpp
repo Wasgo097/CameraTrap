@@ -3,7 +3,7 @@
 #include <opencv2/imgproc.hpp>
 CameraVideoSource::CameraVideoSource(CameraVideoSourceSettings settings) :_settings{ std::move(settings) }
 {
-	_capture.open(_settings.index);
+	_capture.open(static_cast<int>(_settings.index));
 	if (!_capture.isOpened())
 		throw std::runtime_error(std::format("Can't open CameraVideoSource with index = {}", settings.index).c_str());
 }

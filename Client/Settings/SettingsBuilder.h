@@ -12,7 +12,8 @@ class SettingsBuilder
 public:
 	SettingsBuilder(std::string rootDir = "");
 	template<typename T>
-	T GetSettingsFromFile(const std::string& path)const {
+	T GetSettingsFromFile(const std::string& path)const 
+	{
 		const std::string finalPath = _rootDir + path;
 		if (!std::filesystem::exists(finalPath))
 			throw std::invalid_argument{ std::format("Final path: {} in SettingsBuilder::GetSettingsFromFile doesn't exist",finalPath).c_str() };
@@ -25,7 +26,8 @@ public:
 		return settings;
 	}
 	template<typename T>
-	bool CreateFileWithSettings(const std::string& path, const T& settings)const {
+	bool CreateFileWithSettings(const std::string& path, const T& settings)const 
+	{
 		const std::string finalPath = _rootDir + path;
 		std::ofstream str(finalPath);
 		nlohmann::json jfile = settings;
