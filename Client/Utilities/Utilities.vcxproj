@@ -148,14 +148,17 @@
   <ItemGroup>
     <ClInclude Include="ClientAppContext.h" />
     <ClInclude Include="MatDrawer.h" />
+    <ClInclude Include="MultiThreading\ProducerConsumerBase.h" />
     <ClInclude Include="Objects.h" />
     <ClInclude Include="MultipleObservableBasic.h" />
+    <ClInclude Include="MultiThreading\ProcessingResultProducerConsumer.h" />
     <ClInclude Include="SingleObservableBasic.h" />
     <ClInclude Include="Stopwatch.h" />
-    <ClInclude Include="ThreadsResource.h" />
+    <ClInclude Include="MultiThreading\ThreadsResource.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MatDrawer.cpp" />
+    <ClCompile Include="MultiThreading\ProcessingResultProducerConsumer.cpp" />
     <ClCompile Include="Objects.cpp" />
     <ClCompile Include="Stopwatch.cpp" />
   </ItemGroup>

@@ -8,56 +8,62 @@
 #endif
 ClientApp::ClientApp() :_pContext{ std::make_shared<ClientAppContext>() }
 {
-	const std::string mainSettingsDir{ "settings\\" };
-	const std::string mainSettingsFile{ "mainsettings.json" };
-
-	SettingsBuilder settingsBuilder(mainSettingsDir);
-	_mainSettings = settingsBuilder.GetSettingsFromFile<MainSettings>(mainSettingsFile);
-
-	ManagerBuilder managerBuilder{ _mainSettings ,_pContext };
-	_pInputManager = managerBuilder.BuildInputManager();
-	_pCalculationManager = managerBuilder.BuildCalculationManager();
-	auto videoSourcesCount{ _pCalculationManager->GetVideoSourcesSize() };
-	_pContext._pVal->maxDrawingIndex = videoSourcesCount;
+	InitMainSettings();
+	InitAppContext();
+	InitManagers();
 }
 int ClientApp::main()
 {
 	_pCalculationManager->StartCalculation();
 #ifdef STOPWATCH
-	Stopwatch loopWatch, processingWatch;
+	Stopwatch loopWatch;
 	loopWatch.Start();
 #endif
-	cv::Mat drawingMat;
-	while (!_pContext._pVal->quit)
+	size_t previousIndexToProcessingResult{ _pContext->drawingIndex };
+	while (!_pContext->quit)
 	{
-		drawingMat = _pCalculationManager->GetMatFromBuffer().clone();
-		if (!drawingMat.empty())
-			MatDrawer::ShowMat(drawingMat, "Window");
-#ifdef STOPWATCH
-		processingWatch.Start();
-#endif
-		/*for (const auto& [id, frame] : framesMap)
+		auto& currentProcessingResultBuffer{ _processingResultsBuffer[_pContext->drawingIndex] };
+		if (previousIndexToProcessingResult != _pContext->drawingIndex)
 		{
-			bool toDraw{ std::stoul(id) == _pContext._pVal->drawingIndex };
-			if (toDraw)
-				_drawBuffer[_pContext._pVal->drawingIndex] = frame->GetMatCopy();
-			const auto& processors{ _processorsPerId[id] };
-			processors._pDifferenceProcessor->SetInput(frame);
-			processors._pDifferenceProcessor->Process();
-			processors._pMoveDetectorProcessor->SetInput(processors._pDifferenceProcessor->GetResult());
-			processors._pMoveDetectorProcessor->Process();
-			if (toDraw)
-				drawer.DrawObjectsAndShowMat(_drawBuffer[_pContext._pVal->drawingIndex], processors._pMoveDetectorProcessor->GetResult().moveDetectionResult, "ClientApp");
-		}*/
-#ifdef STOPWATCH
-		processingWatch.Stop();
-#endif
+			currentProcessingResultBuffer->ClearDataBuffer();
+			previousIndexToProcessingResult = _pContext->drawingIndex;
+		}
+		auto moveDetectionResult{ currentProcessingResultBuffer->Consume() };
+		if (!moveDetectionResult.rawMat.empty())
+		{
+			MatDrawer::DrawObjectsOnMat(moveDetectionResult.rawMat, moveDetectionResult.moveDetectionResult);
+			MatDrawer::ShowMat(moveDetectionResult.rawMat, "Window");
+		}
 		_pInputManager->ServiceInputFromKeyboard();
 #ifdef STOPWATCH
-		std::cout << "Loop time: " << loopWatch.ElapsedMilliseconds() << std::endl << "Processing time: " << processingWatch.ElapsedMilliseconds() << std::endl;
+		std::cout << "Loop time: " << loopWatch.ElapsedMilliseconds() << std::endl;
 		loopWatch.Reset();
 #endif
 	}
 	_pCalculationManager->StopCalculation();
 	return 0;
+}
+
+void ClientApp::InitMainSettings()
+{
+	const std::string mainSettingsDir{ "settings\\" };
+	const std::string mainSettingsFile{ "mainsettings.json" };
+	SettingsBuilder settingsBuilder(mainSettingsDir);
+	_mainSettings = settingsBuilder.GetSettingsFromFile<MainSettings>(mainSettingsFile);
+}
+
+void ClientApp::InitManagers()
+{
+	ManagerBuilder managerBuilder{ _mainSettings,_pContext };
+	_pInputManager = managerBuilder.BuildInputManager();
+	const auto videoSourcesCount{ _mainSettings.videoSourceSettingsPaths.size() };
+	_processingResultsBuffer.reserve(videoSourcesCount);
+	for (size_t i{ 0ull }; i < videoSourcesCount; i++)
+		_processingResultsBuffer.push_back(std::make_shared<ProcessingResultProducerConsumer>());
+	_pCalculationManager = managerBuilder.BuildCalculationManager(_processingResultsBuffer);
+}
+
+void ClientApp::InitAppContext()
+{
+	_pContext.reset(new ClientAppContext{ .maxDrawingIndex = _mainSettings.videoSourceSettingsPaths.size() });
 }

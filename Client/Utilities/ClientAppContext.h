@@ -3,5 +3,5 @@ struct ClientAppContext
 {
 	bool quit{ false };
 	size_t drawingIndex{ 0 };
-	size_t maxDrawingIndex{ 0 };
+	const size_t maxDrawingIndex{ 0 };
 };

@@ -1,23 +1,10 @@
 #include "CalculationManager.h"
 #include <format>
 CalculationManager::CalculationManager(std::unique_ptr<VideoSourcesManager>&& pVideoSourceManager,
-	std::unique_ptr<ProcessorsManager>&& pProcessorsManager,
-	ThreadsResourcePtr<ClientAppContext> pContext) :
+	std::unique_ptr<ProcessorsManager>&& pProcessorsManager) :
 	_pVideoSourceManager{ std::move(pVideoSourceManager) },
-	_pProcessorsManager{ std::move(pProcessorsManager) },
-	_pContext{ std::move(pContext) }
+	_pProcessorsManager{ std::move(pProcessorsManager) }
 {
-}
-
-size_t CalculationManager::GetVideoSourcesSize() const
-{
-	return _pVideoSourceManager->GetVideoSourcesCount();
-}
-
-const cv::Mat& CalculationManager::GetMatFromBuffer() const
-{
-	std::shared_lock lock(*_pContext._pMtx);
-	return _pVideoSourceManager->GetMatFromBuffer(_pContext._pVal->drawingIndex);
 }
 
 void CalculationManager::StartCalculation()

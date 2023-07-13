@@ -30,13 +30,19 @@
     <ClInclude Include="ClientAppContext.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ThreadsResource.h">
+    <ClInclude Include="MultiThreading\ThreadsResource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="MultipleObservableBasic.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SingleObservableBasic.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MultiThreading\ProcessingResultProducerConsumer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MultiThreading\ProducerConsumerBase.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -48,6 +54,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="MatDrawer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MultiThreading\ProcessingResultProducerConsumer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

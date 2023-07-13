@@ -20,7 +20,7 @@ DifferenceResult DifferenceProcessor::Process()
 	GaussianBlur(_pPreviousImage->GetMatCRef(), _previousMat, _settings.blurSize, 0);
 	cv::absdiff(_currentMat, _previousMat, _difference);
 	cv::threshold(_difference, _treshold, _settings.threshold, 255, cv::THRESH_BINARY);
-	return DifferenceResult{ _treshold.clone() };
+	return DifferenceResult{ _pCurrentImage->GetMatCRef(), _treshold.clone()};
 }
 
 void DifferenceProcessor::Notify(std::shared_ptr<IFrame> param)
