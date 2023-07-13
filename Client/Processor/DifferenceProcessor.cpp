@@ -6,23 +6,25 @@ DifferenceProcessor::DifferenceProcessor(DifferenceProcessorSettings settings) :
 {
 }
 
-void DifferenceProcessor::AddNewFrame(std::shared_ptr<IFrame> newFrame)
+void DifferenceProcessor::SetInput(std::shared_ptr<IFrame> newFrame)
 {
-	_previousImage = std::move(_currentImage);
-	_currentImage = std::move(newFrame);
+	_pPreviousImage = std::move(_pCurrentImage);
+	_pCurrentImage = std::move(newFrame);
 }
 
-void DifferenceProcessor::Process()
+DifferenceResult DifferenceProcessor::Process()
 {
-	if (not _currentImage or not _previousImage)
-		return;
-	GaussianBlur(_currentImage->GetMatCRef(), _currentMat, _settings.blurSize, 0);
-	GaussianBlur(_previousImage->GetMatCRef(), _previousMat, _settings.blurSize, 0);
+	if (!_pCurrentImage or !_pPreviousImage)
+		return {};
+	GaussianBlur(_pCurrentImage->GetMatCRef(), _currentMat, _settings.blurSize, 0);
+	GaussianBlur(_pPreviousImage->GetMatCRef(), _previousMat, _settings.blurSize, 0);
 	cv::absdiff(_currentMat, _previousMat, _difference);
 	cv::threshold(_difference, _treshold, _settings.threshold, 255, cv::THRESH_BINARY);
+	return DifferenceResult{ _pCurrentImage->GetMatCRef(), _treshold.clone()};
 }
 
-cv::Mat DifferenceProcessor::GetResult() const
+void DifferenceProcessor::Notify(std::shared_ptr<IFrame> param)
 {
-	return _treshold.clone();
+	SetInput(std::move(param));
+	NotifyAllObservers(Process());
 }

@@ -131,12 +131,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CalculationManager.h" />
+    <ClInclude Include="InputManager.h" />
+    <ClInclude Include="ProcessorsManager.h" />
     <ClInclude Include="VideoSourcesManager.h" />
-    <ClInclude Include="VideoSourcesManagerBuilder.h" />
+    <ClInclude Include="ManagerBuilder.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CalculationManager.cpp" />
+    <ClCompile Include="InputManager.cpp" />
+    <ClCompile Include="ProcessorsManager.cpp" />
     <ClCompile Include="VideoSourcesManager.cpp" />
-    <ClCompile Include="VideoSourcesManagerBuilder.cpp" />
+    <ClCompile Include="ManagerBuilder.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

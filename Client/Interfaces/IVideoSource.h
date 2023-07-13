@@ -1,7 +1,7 @@
 #pragma once
-#include <memory>
 #include "IFrame.h"
-class IVideoSource
+#include "Utilities/SingleObservableBasic.h"
+class IVideoSource :public SingleObservableBasic<std::shared_ptr<IFrame>>
 {
 public:
 	virtual ~IVideoSource() = default;

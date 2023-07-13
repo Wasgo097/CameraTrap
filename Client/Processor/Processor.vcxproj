@@ -147,27 +147,16 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="DebugDrawer.h" />
     <ClInclude Include="DifferenceProcessor.h" />
     <ClInclude Include="MoveDetectorProcessor.h" />
     <ClInclude Include="ProcessorBuilder.h" />
+    <ClInclude Include="ProcessorHelper.h" />
+    <ClInclude Include="ProcessorStructs.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="DebugDrawer.cpp" />
     <ClCompile Include="DifferenceProcessor.cpp" />
     <ClCompile Include="MoveDetectorProcessor.cpp" />
     <ClCompile Include="ProcessorBuilder.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Interfaces\Interfaces.vcxproj">
-      <Project>{015e5269-3bbe-456b-b76e-88b412a4c08b}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\Settings\Settings.vcxproj">
-      <Project>{1c1f691d-bd83-4c63-9a89-ba5098c6202f}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\Utilities\Utilities.vcxproj">
-      <Project>{52b4accf-fa73-4db7-80db-e14a5c3774e0}</Project>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

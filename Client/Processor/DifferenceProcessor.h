@@ -1,20 +1,24 @@
 #pragma once
-#include "Interfaces/IFrame.h"
 #include "Interfaces/IProcessor.h"
+#include "Interfaces/IFrame.h"
+#include "ProcessorStructs.h"
 #include "Settings/DifferenceProcessorSettings.h"
-class DifferenceProcessor:public IProcessor<cv::Mat>
+class DifferenceProcessor :public IProcessor<DifferenceResult, std::shared_ptr<IFrame>>
 {
 public:
 	DifferenceProcessor(DifferenceProcessorSettings settings);
-	void AddNewFrame(std::shared_ptr<IFrame> newFrame);
-	void Process() override;
-	cv::Mat GetResult()const override;
+	void SetInput(std::shared_ptr<IFrame> input) override;
+	DifferenceResult Process() override;
+	void Notify(std::shared_ptr<IFrame> param) override;
 protected:
-	std::shared_ptr<IFrame> _currentImage;
-	std::shared_ptr<IFrame> _previousImage;
+	DifferenceProcessorSettings _settings;
+	std::shared_ptr<IFrame> _pCurrentImage;
+	std::shared_ptr<IFrame> _pPreviousImage;
 	cv::Mat _currentMat;
 	cv::Mat _previousMat;
 	cv::Mat _difference;
 	cv::Mat _treshold;
-	DifferenceProcessorSettings _settings;
+
+
+
 };

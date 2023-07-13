@@ -1,52 +1,53 @@
 #include "MoveDetectorProcessor.h"
 #include <opencv2/imgproc.hpp>
-#include <opencv2/objdetect.hpp>
 #include <algorithm>
-MoveDetectorProcessor::MoveDetectorProcessor(MoveDetectorProcessorSettings settings) :_settings{ std::move(settings) }
+#include "ProcessorBuilder.h"
+MoveDetectorProcessor::MoveDetectorProcessor(MoveDetectorProcessorSettings settings) :
+	_result{ .moveDetectionResult = Objects(_settings.initBufferSize, _settings.maxObjectsCount) },
+	_settings{ std::move(settings) }
 {
-	_objects = { _settings.initBufferSize,_settings.maxObjectsCount };
 }
 
-void MoveDetectorProcessor::SetNewDifferenceMat(const cv::Mat& differenceMat)
+void MoveDetectorProcessor::SetInput(DifferenceResult input)
 {
-	_differenceMatBuffer = differenceMat.clone();
-	_enableProcess = true;
+	_input = std::move(input);
 }
 
-void MoveDetectorProcessor::Process()
+MoveDetectionResult MoveDetectorProcessor::Process()
 {
-	if (!_enableProcess or _differenceMatBuffer.empty())
-		return;
+	auto& differenceMatBuffer{ _input.differenceResult };
+	if (differenceMatBuffer.empty())
+		return {};
 	ClearInternalBuffers();
-	cv::findContours(_differenceMatBuffer, _contours, cv::RETR_EXTERNAL, cv::CHAIN_APPROX_SIMPLE);
+	cv::findContours(differenceMatBuffer, _contours, cv::RETR_EXTERNAL, cv::CHAIN_APPROX_SIMPLE);
 	for (auto&& objectPoints : _contours)
 		_tempObjects.emplace_back(cv::boundingRect(std::move(objectPoints)));
 	ManageTempObjects();
-	for (const auto& object : _tempObjects)
-		if (!_objects.PushNewObject(object))
+	for (auto&& object : _tempObjects)
+		if (!_result.moveDetectionResult.PushNewObject(std::move(object)))
 			break;
-	_enableProcess = false;
+	_result.rawMat = _input.rawMat;
+	return _result;
 }
 
-Objects MoveDetectorProcessor::GetResult() const
+void MoveDetectorProcessor::Notify(DifferenceResult param)
 {
-	return _objects;
+	SetInput(std::move(param));
+	NotifyAllObservers(Process());
 }
 
 void MoveDetectorProcessor::ClearInternalBuffers()
 {
-	_objects.ClearAllObjects();
+	_result.moveDetectionResult.ClearAllObjects();
 	_contours.clear();
 	_tempObjects.clear();
 }
 
 void MoveDetectorProcessor::ManageTempObjects()
 {
-	if (_settings.mergeIntersectedObjects)
-		cv::groupRectangles(_tempObjects,2);
 	if (_settings.minObjectArea > 0)
 	{
-		auto rangeToRemove{ std::ranges::remove_if(_tempObjects, [&](const auto& rect)
+		auto rangeToRemove{ std::ranges::remove_if(_tempObjects, [this](const auto& rect)
 			{
 				return rect.area() < _settings.minObjectArea;
 			}) };

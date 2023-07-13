@@ -145,25 +145,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Interfaces\Interfaces.vcxproj">
-      <Project>{015e5269-3bbe-456b-b76e-88b412a4c08b}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\Settings\Settings.vcxproj">
-      <Project>{1c1f691d-bd83-4c63-9a89-ba5098c6202f}</Project>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CameraVideoSource.h" />
-    <ClInclude Include="FileVideoSource.h" />
     <ClInclude Include="FrameBase.h" />
     <ClInclude Include="VideoSourceBuilder.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CameraVideoSource.cpp" />
-    <ClCompile Include="FileVideoSource.cpp" />
     <ClCompile Include="FrameBase.cpp" />
     <ClCompile Include="VideoSourceBuilder.cpp" />
   </ItemGroup>

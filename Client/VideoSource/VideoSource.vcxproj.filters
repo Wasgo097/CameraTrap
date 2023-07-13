@@ -27,9 +27,6 @@
     <ClInclude Include="FrameBase.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="FileVideoSource.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CameraVideoSource.cpp">
@@ -39,9 +36,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="VideoSourceBuilder.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="FileVideoSource.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

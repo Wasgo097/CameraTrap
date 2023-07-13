@@ -143,8 +143,8 @@
     <ClInclude Include="ClientApp.h" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Interfaces\Interfaces.vcxproj">
-      <Project>{015e5269-3bbe-456b-b76e-88b412a4c08b}</Project>
+    <ProjectReference Include="..\Controller\Controller.vcxproj">
+      <Project>{b5e51acd-6508-403c-9683-e5c3b9a2de20}</Project>
     </ProjectReference>
     <ProjectReference Include="..\Manager\Manager.vcxproj">
       <Project>{aa0c145d-6664-459d-a0f5-01f35f562a9a}</Project>

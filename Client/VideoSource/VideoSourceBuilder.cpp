@@ -14,7 +14,10 @@ std::shared_ptr<IVideoSource> VideoSourceBuilder::BuildVideoSource(const std::st
 	{
 		result = std::make_shared<CameraVideoSource>(_settingsBuilder.GetSettingsFromFile<CameraVideoSourceSettings>(path));
 	}
-	catch (...) {}
+	catch (...) 
+	{
+
+	}
 	return result;
 }
 
