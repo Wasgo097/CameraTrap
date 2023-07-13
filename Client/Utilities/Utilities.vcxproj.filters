@@ -24,7 +24,7 @@
     <ClInclude Include="Stopwatch.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="DebugDrawer.h">
+    <ClInclude Include="MatDrawer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ClientAppContext.h">
@@ -47,7 +47,7 @@
     <ClCompile Include="Stopwatch.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="DebugDrawer.cpp">
+    <ClCompile Include="MatDrawer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

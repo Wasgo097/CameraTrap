@@ -1,7 +1,7 @@
 #include "ClientApp.h"
 #include "Settings/SettingsBuilder.h"
 #include "Manager/ManagerBuilder.h"
-#include "Utilities/DebugDrawer.h"
+#include "Utilities/MatDrawer.h"
 //#define STOPWATCH
 #ifdef STOPWATCH
 #include "Utilities/Stopwatch.h"
@@ -23,7 +23,6 @@ ClientApp::ClientApp() :_pContext{ std::make_shared<ClientAppContext>() }
 int ClientApp::main()
 {
 	_pCalculationManager->StartCalculation();
-	DebugDrawer drawer;
 #ifdef STOPWATCH
 	Stopwatch loopWatch, processingWatch;
 	loopWatch.Start();
@@ -33,7 +32,7 @@ int ClientApp::main()
 	{
 		drawingMat = _pCalculationManager->GetMatFromBuffer().clone();
 		if (!drawingMat.empty())
-			drawer.ShowMat(drawingMat, "Window");
+			MatDrawer::ShowMat(drawingMat, "Window");
 #ifdef STOPWATCH
 		processingWatch.Start();
 #endif

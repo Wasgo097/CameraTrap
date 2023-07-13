@@ -45,9 +45,10 @@ void VideoSourcesManager::StartStreaming()
 			{
 				while (!stopToken.stop_requested())
 				{
-					std::unique_lock lock(*buffer._pMtx);
 					auto frame{ videoSource->GetNextFrame() };
-					buffer = frame->GetMatCopy();
+					std::unique_lock lock(*buffer._pMtx);
+					buffer._val = frame->GetMatCopy();
+					lock.unlock();
 					videoSource->NotifyAllObservers(frame);
 				}
 			}, _videoSourcesThreadsStopToken.get_token(), std::ref(_drawingMats[index])));

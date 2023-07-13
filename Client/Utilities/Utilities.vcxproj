@@ -147,7 +147,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ClientAppContext.h" />
-    <ClInclude Include="DebugDrawer.h" />
+    <ClInclude Include="MatDrawer.h" />
     <ClInclude Include="Objects.h" />
     <ClInclude Include="MultipleObservableBasic.h" />
     <ClInclude Include="SingleObservableBasic.h" />
@@ -155,7 +155,7 @@
     <ClInclude Include="ThreadsResource.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="DebugDrawer.cpp" />
+    <ClCompile Include="MatDrawer.cpp" />
     <ClCompile Include="Objects.cpp" />
     <ClCompile Include="Stopwatch.cpp" />
   </ItemGroup>
