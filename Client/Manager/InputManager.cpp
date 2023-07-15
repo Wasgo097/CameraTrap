@@ -21,6 +21,10 @@ std::unordered_map<KeyboardKeys, std::function<void()>> InputManager::InitKeyboa
 	{
 		_pClientAppContext->quit = true;
 	};
+	result[KeyboardKeys::V] = [this]()
+	{
+		_pClientAppContext->drawWindow = !_pClientAppContext->drawWindow;
+	};
 	result[KeyboardKeys::Left] = [this]()
 	{
 		auto& drawingIndex{ _pClientAppContext->drawingIndex };

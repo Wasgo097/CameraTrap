@@ -1,14 +1,15 @@
 #pragma once
 #include "Utilities/Objects.h"
+#include <Interfaces/IFrame.h>
 #include <opencv2/core/mat.hpp>
 struct DifferenceResult
 {
-	cv::Mat rawMat;
+	std::shared_ptr<IFrame> rawFrame;
 	cv::Mat differenceResult;
 };
 
 struct MoveDetectionResult
 {
-	cv::Mat rawMat;
+	std::shared_ptr<IFrame> rawFrame;
 	Objects moveDetectionResult;
 };

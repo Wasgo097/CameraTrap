@@ -9,6 +9,7 @@
 [X] Multithreading (frame producer and consumer (Observer pattern?))
 [X] Manager which connect all managers
 [X] Refactoring AppClient constructor (connect with previous task?) 
+[] App use a lot of cpu resources, reduce it without performance 
 ```
 
 ## ToDo Server

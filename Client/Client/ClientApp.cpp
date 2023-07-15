@@ -2,15 +2,21 @@
 #include "Settings/SettingsBuilder.h"
 #include "Manager/ManagerBuilder.h"
 #include "Utilities/MatDrawer.h"
-//#define STOPWATCH
+#define STOPWATCH
 #ifdef STOPWATCH
 #include "Utilities/Stopwatch.h"
+#include <iostream>
 #endif
+const std::string ClientApp::_windowName{"Window"};
 ClientApp::ClientApp() :_pContext{ std::make_shared<ClientAppContext>() }
 {
 	InitMainSettings();
 	InitAppContext();
 	InitManagers();
+}
+ClientApp::~ClientApp()
+{
+	MatDrawer::ClearWindow();
 }
 int ClientApp::main()
 {
@@ -28,12 +34,17 @@ int ClientApp::main()
 			currentProcessingResultBuffer->ClearDataBuffer();
 			previousIndexToProcessingResult = _pContext->drawingIndex;
 		}
-		auto moveDetectionResult{ currentProcessingResultBuffer->Consume() };
-		if (!moveDetectionResult.rawMat.empty())
+		if (_pContext->drawWindow)
 		{
-			MatDrawer::DrawObjectsOnMat(moveDetectionResult.rawMat, moveDetectionResult.moveDetectionResult);
-			MatDrawer::ShowMat(moveDetectionResult.rawMat, "Window");
+			auto moveDetectionResult{ currentProcessingResultBuffer->Consume() };
+			if (_matToGui = moveDetectionResult.rawFrame->GetMatCopy(); !_matToGui.empty())
+			{
+				MatDrawer::DrawObjectsOnMat(_matToGui, moveDetectionResult.moveDetectionResult);
+				MatDrawer::ShowMat(_matToGui, _windowName);
+			}
 		}
+		else
+			MatDrawer::ShowMat(_emptyMatToGui, _windowName);
 		_pInputManager->ServiceInputFromKeyboard();
 #ifdef STOPWATCH
 		std::cout << "Loop time: " << loopWatch.ElapsedMilliseconds() << std::endl;
