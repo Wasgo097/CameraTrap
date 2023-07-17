@@ -1,8 +1,6 @@
 #include "ManagerBuilder.h"
 #include "VideoSource/VideoSourceBuilder.h"
-#include "Processor/ProcessorBuilder.h"
-#include "Processor/DifferenceProcessor.h"
-#include "Processor/MoveDetectorProcessor.h"
+#include "Processor/ProcessorFactory.h"
 ManagerBuilder::ManagerBuilder(const MainSettings& mainSettings, std::shared_ptr<ClientAppContext> pContext) :
 	_mainSettings{ mainSettings },
 	_pContext{ std::move(pContext) }
@@ -36,14 +34,12 @@ std::unique_ptr<ProcessorsManager> ManagerBuilder::BuildProcessorsManager(const 
 	const std::vector<std::shared_ptr<ProcessingResultProducerConsumer>>& processingResultsBuffer) const
 {
 	std::vector<Processors> processors(videoSources.size());
-	ProcessorBuilder processorBuilder(_mainSettings.settingsRootDir);
+	ProcessorFactory processorBuilder(_mainSettings.settingsRootDir);
 	size_t index{ 0ull };
 	for (auto& processor : processors)
 	{
-		processor._pDifferenceProcessor = processorBuilder.BuildProcessorWithSettings<DifferenceProcessor, DifferenceProcessorSettings, DifferenceResult, std::shared_ptr<IFrame>>
-			(_mainSettings.differenceProcessorSettingsPath);
-		processor._pMoveDetectorProcessor = processorBuilder.BuildProcessorWithSettings<MoveDetectorProcessor, MoveDetectorProcessorSettings, MoveDetectionResult, DifferenceResult>
-			(_mainSettings.moveDetectorProcessorSettingsPath);
+		processor._pDifferenceProcessor = processorBuilder.BuildDifferenceProcessor(_mainSettings.differenceProcessorSettingsPath);
+		processor._pMoveDetectorProcessor = processorBuilder.BuildMotionDetectionResult(_mainSettings.moveDetectorProcessorSettingsPath);
 		videoSources[index]->AddNewObserver(processor._pDifferenceProcessor);
 		processor._pDifferenceProcessor->AddNewObserver(processor._pMoveDetectorProcessor);
 		processor._pMoveDetectorProcessor->AddNewObserver(processingResultsBuffer[index]);

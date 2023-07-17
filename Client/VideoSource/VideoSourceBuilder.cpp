@@ -11,13 +11,9 @@ VideoSourceBuilder::VideoSourceBuilder(std::string videoSourceSettingsRootPath) 
 std::shared_ptr<IVideoSource> VideoSourceBuilder::BuildVideoSource(const std::string& path) const
 {
 	std::shared_ptr<IVideoSource> result;
-	try
+	if (auto cameraVideoSourceSettings{ _settingsBuilder.GetSettingsFromFile<CameraVideoSourceSettings>(path) })
 	{
-		result = std::make_shared<CameraVideoSource>(_settingsBuilder.GetSettingsFromFile<CameraVideoSourceSettings>(path));
-	}
-	catch (const std::exception& ex) 
-	{
-		std::cerr << "Error: " << ex.what() << " VideoSourceBuilder::BuildVideoSource\n";
+		result = std::make_shared<CameraVideoSource>(*cameraVideoSourceSettings);
 	}
 	return result;
 }

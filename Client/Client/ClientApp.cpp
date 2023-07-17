@@ -51,7 +51,10 @@ void ClientApp::InitMainSettings()
 	const std::string mainSettingsDir{ "settings\\" };
 	const std::string mainSettingsFile{ "mainsettings.json" };
 	SettingsBuilder settingsBuilder(mainSettingsDir);
-	_mainSettings = settingsBuilder.GetSettingsFromFile<MainSettings>(mainSettingsFile);
+	if (auto mainSettings{ settingsBuilder.GetSettingsFromFile<MainSettings>(mainSettingsFile) })
+		_mainSettings = *mainSettings;
+	else
+		throw std::runtime_error(std::format("Cant parse MainSettings from settings\\mainsettings.json").c_str());
 }
 
 void ClientApp::InitManagers()

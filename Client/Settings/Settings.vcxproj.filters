@@ -30,13 +30,13 @@
     <ClInclude Include="OpenCVStructsToJson.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="DifferenceProcessorSettings.h">
+    <ClInclude Include="SimpleDifferenceProcessorSettings.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="FileVideoSourceSettings.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MoveDetectorProcessorSettings.h">
+    <ClInclude Include="SimpleMoveDetectorProcessorSettings.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

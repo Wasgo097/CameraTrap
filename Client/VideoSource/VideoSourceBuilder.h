@@ -1,6 +1,4 @@
 #pragma once
-#include <string>
-#include <memory>
 #include "Interfaces/IVideoSource.h"
 #include "Settings/SettingsBuilder.h"
 class VideoSourceBuilder

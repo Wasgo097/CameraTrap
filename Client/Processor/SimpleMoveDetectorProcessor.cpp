@@ -1,19 +1,18 @@
-#include "MoveDetectorProcessor.h"
+#include "SimpleMoveDetectorProcessor.h"
 #include <opencv2/imgproc.hpp>
 #include <algorithm>
-#include "ProcessorBuilder.h"
-MoveDetectorProcessor::MoveDetectorProcessor(MoveDetectorProcessorSettings settings) :
+SimpleMoveDetectorProcessor::SimpleMoveDetectorProcessor(SimpleMoveDetectorProcessorSettings settings) :
 	_result{ .moveDetectionResult = Objects(_settings.initBufferSize, _settings.maxObjectsCount) },
 	_settings{ std::move(settings) }
 {
 }
 
-void MoveDetectorProcessor::SetInput(DifferenceResult input)
+void SimpleMoveDetectorProcessor::SetInput(DifferenceResult input)
 {
 	_input = std::move(input);
 }
 
-MoveDetectionResult MoveDetectorProcessor::Process()
+MoveDetectionResult SimpleMoveDetectorProcessor::Process()
 {
 	const auto& differenceMatBuffer{ _input.differenceResult };
 	if (differenceMatBuffer.empty())
@@ -26,24 +25,24 @@ MoveDetectionResult MoveDetectorProcessor::Process()
 	for (auto&& object : _tempObjects)
 		if (!_result.moveDetectionResult.PushNewObject(std::move(object)))
 			break;
-	_result.pRawFrame = _input.pRawFrame;
+	_result.pRawFrame = std::move(_input.pRawFrame);
 	return _result;
 }
 
-void MoveDetectorProcessor::Notify(DifferenceResult param)
+void SimpleMoveDetectorProcessor::Notify(DifferenceResult param)
 {
 	SetInput(std::move(param));
 	NotifyAllObservers(Process());
 }
 
-void MoveDetectorProcessor::ClearInternalBuffers()
+void SimpleMoveDetectorProcessor::ClearInternalBuffers()
 {
 	_result.moveDetectionResult.ClearAllObjects();
 	_contours.clear();
 	_tempObjects.clear();
 }
 
-void MoveDetectorProcessor::ManageTempObjects()
+void SimpleMoveDetectorProcessor::ManageTempObjects()
 {
 	if (_settings.minObjectArea > 0)
 	{
