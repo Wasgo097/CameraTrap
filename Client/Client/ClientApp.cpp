@@ -7,7 +7,7 @@
 #include "Utilities/Stopwatch.h"
 #include <iostream>
 #endif
-const std::string ClientApp::_windowName{"Window"};
+const std::string ClientApp::_windowName{"ClientViewer"};
 ClientApp::ClientApp() :_pContext{ std::make_shared<ClientAppContext>() }, _matToGui{ std::make_shared<cv::Mat>(1, 1, CV_8UC3, cv::Scalar(255, 255, 255)) }
 {
 	InitMainSettings();
@@ -17,12 +17,11 @@ ClientApp::ClientApp() :_pContext{ std::make_shared<ClientAppContext>() }, _matT
 ClientApp::~ClientApp()
 {
 	MatDrawer::ClearWindow();
+	_pCalculationResultManager->StopResultsProcessing();
 	_pCalculationManager->StopCalculation();
-	_pCalculationResultManager->StopWorkingThread();
 }
 int ClientApp::main()
 {
-	_pCalculationManager->StartCalculation();
 #ifdef STOPWATCH
 	Stopwatch loopWatch;
 	loopWatch.Start();
@@ -64,7 +63,9 @@ void ClientApp::InitManagers()
 	for (size_t i{ 0ull }; i < videoSourcesCount; i++)
 		_processingResultsBuffer.push_back(std::make_shared<ProcessingResultProducerConsumer>());
 	_pCalculationManager = managerBuilder.BuildCalculationManager(_processingResultsBuffer);
+	_pCalculationManager->StartCalculation();
 	_pCalculationResultManager = managerBuilder.BuildCalculationResultManager(_processingResultsBuffer, _matToGui);
+	_pCalculationResultManager->StartResultsProcessing();
 }
 
 void ClientApp::InitAppContext()

@@ -9,9 +9,9 @@ public:
 	CalculationResultManager(const std::vector<std::shared_ptr<ProcessingResultProducerConsumer>>& processingResultsBuffer,
 		ThreadsResourcePtr<cv::Mat> matToGui,
 		std::shared_ptr<ClientAppContext> pContext);
-	void StopWorkingThread();
+	void StartResultsProcessing();
+	void StopResultsProcessing();
 protected:
-	void WorkingThread(const std::stop_token& stopToken);
 	const std::vector<std::shared_ptr<ProcessingResultProducerConsumer>>& _processingResultsBuffer;
 	ThreadsResourcePtr<cv::Mat> _matToGui;
 	std::shared_ptr<ClientAppContext> _pContext;
