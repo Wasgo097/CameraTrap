@@ -2,13 +2,13 @@
 #include "Settings/SettingsBuilder.h"
 #include "Manager/ManagerBuilder.h"
 #include "Utilities/MatDrawer.h"
-#define STOPWATCH
+//#define STOPWATCH
 #ifdef STOPWATCH
 #include "Utilities/Stopwatch.h"
 #include <iostream>
 #endif
 const std::string ClientApp::_windowName{"Window"};
-ClientApp::ClientApp() :_pContext{ std::make_shared<ClientAppContext>() }
+ClientApp::ClientApp() :_pContext{ std::make_shared<ClientAppContext>() }, _matToGui{ std::make_shared<cv::Mat>(1, 1, CV_8UC3, cv::Scalar(255, 255, 255)) }
 {
 	InitMainSettings();
 	InitAppContext();
@@ -17,6 +17,8 @@ ClientApp::ClientApp() :_pContext{ std::make_shared<ClientAppContext>() }
 ClientApp::~ClientApp()
 {
 	MatDrawer::ClearWindow();
+	_pCalculationManager->StopCalculation();
+	_pCalculationResultManager->StopWorkingThread();
 }
 int ClientApp::main()
 {
@@ -28,20 +30,11 @@ int ClientApp::main()
 	size_t previousIndexToProcessingResult{ _pContext->drawingIndex };
 	while (!_pContext->quit)
 	{
-		auto& currentProcessingResultBuffer{ _processingResultsBuffer[_pContext->drawingIndex] };
-		if (previousIndexToProcessingResult != _pContext->drawingIndex)
-		{
-			currentProcessingResultBuffer->ClearDataBuffer();
-			previousIndexToProcessingResult = _pContext->drawingIndex;
-		}
 		if (_pContext->drawWindow)
 		{
-			auto moveDetectionResult{ currentProcessingResultBuffer->Consume() };
-			if (_matToGui = moveDetectionResult.rawFrame->GetMatCopy(); !_matToGui.empty())
-			{
-				MatDrawer::DrawObjectsOnMat(_matToGui, moveDetectionResult.moveDetectionResult);
-				MatDrawer::ShowMat(_matToGui, _windowName);
-			}
+			std::shared_lock lock(*_matToGui._pMtx);
+			MatDrawer::ShowMat(*_matToGui._pVal, _windowName);
+			lock.unlock();
 		}
 		else
 			MatDrawer::ShowMat(_emptyMatToGui, _windowName);
@@ -51,7 +44,6 @@ int ClientApp::main()
 		loopWatch.Reset();
 #endif
 	}
-	_pCalculationManager->StopCalculation();
 	return 0;
 }
 
@@ -72,6 +64,7 @@ void ClientApp::InitManagers()
 	for (size_t i{ 0ull }; i < videoSourcesCount; i++)
 		_processingResultsBuffer.push_back(std::make_shared<ProcessingResultProducerConsumer>());
 	_pCalculationManager = managerBuilder.BuildCalculationManager(_processingResultsBuffer);
+	_pCalculationResultManager = managerBuilder.BuildCalculationResultManager(_processingResultsBuffer, _matToGui);
 }
 
 void ClientApp::InitAppContext()

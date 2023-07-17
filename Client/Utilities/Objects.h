@@ -9,6 +9,6 @@ public:
 	void ClearAllObjects();
 	const std::vector<cv::Rect>& GetObjects()const;
 protected:
-	const size_t _MAXOBJECTS{ 0 };
+	size_t _MAXOBJECTS{ 0 };
 	std::vector<cv::Rect> _objects;
 };

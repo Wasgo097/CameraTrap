@@ -1,8 +1,8 @@
 #pragma once
 #include "Settings/MainSettings.h"
-#include "Manager/CalculationManager.h"
 #include "Manager/InputManager.h"
-#include "Utilities/MultiThreading/ProcessingResultProducerConsumer.h"
+#include "Manager/CalculationManager.h"
+#include "Manager/CalculationResultManager.h"
 class ClientApp
 {
 public:
@@ -16,9 +16,10 @@ protected:
 	MainSettings _mainSettings;
 	std::unique_ptr<InputManager> _pInputManager;
 	std::unique_ptr<CalculationManager> _pCalculationManager;
+	std::unique_ptr<CalculationResultManager> _pCalculationResultManager;
 	std::shared_ptr<ClientAppContext> _pContext;
-	std::vector<std::shared_ptr<ProcessingResultProducerConsumer>> _processingResultsBuffer;
+	ThreadsResourcePtr<cv::Mat> _matToGui;
 	cv::Mat _emptyMatToGui{1, 1, CV_8UC3, cv::Scalar(255, 255, 255)};
-	cv::Mat _matToGui{1, 1, CV_8UC3, cv::Scalar(255, 255, 255)};
+	std::vector<std::shared_ptr<ProcessingResultProducerConsumer>> _processingResultsBuffer;
 	const static std::string _windowName;
 };

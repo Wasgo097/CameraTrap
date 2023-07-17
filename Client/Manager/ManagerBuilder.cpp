@@ -3,21 +3,27 @@
 #include "Processor/ProcessorBuilder.h"
 #include "Processor/DifferenceProcessor.h"
 #include "Processor/MoveDetectorProcessor.h"
-ManagerBuilder::ManagerBuilder(const MainSettings& mainSettings, std::shared_ptr<ClientAppContext> pClientAppContext) :
+ManagerBuilder::ManagerBuilder(const MainSettings& mainSettings, std::shared_ptr<ClientAppContext> pContext) :
 	_mainSettings{ mainSettings },
-	_pClientAppContext{ std::move(pClientAppContext) }
+	_pContext{ std::move(pContext) }
 {}
 
-std::unique_ptr<CalculationManager> ManagerBuilder::BuildCalculationManager(const std::vector<std::shared_ptr<ProcessingResultProducerConsumer>>& processingResultBuffer) const
+std::unique_ptr<CalculationManager> ManagerBuilder::BuildCalculationManager(const std::vector<std::shared_ptr<ProcessingResultProducerConsumer>>& processingResultsBuffer) const
 {
 	auto pVideoSourcesManager{ BuildVideoSourcesManager() };
 	if (!pVideoSourcesManager)
 		throw std::invalid_argument(std::format("VideoSourcesManager is null in CalculationManager").c_str());
 	const auto& videoSources{ pVideoSourcesManager->GetVideoSources() };
-	auto pProcessorsManager{ BuildProcessorsManager(videoSources,processingResultBuffer) };
+	auto pProcessorsManager{ BuildProcessorsManager(videoSources,processingResultsBuffer) };
 	if (!pProcessorsManager)
 		throw std::invalid_argument(std::format("ProcessorsManager is null in CalculationManager").c_str());
 	return std::make_unique<CalculationManager>(std::move(pVideoSourcesManager), std::move(pProcessorsManager));
+}
+
+std::unique_ptr<CalculationResultManager> ManagerBuilder::BuildCalculationResultManager(const std::vector<std::shared_ptr<ProcessingResultProducerConsumer>>& processingResultsBuffer,
+	ThreadsResourcePtr<cv::Mat> matToGui) const
+{
+	return std::make_unique<CalculationResultManager>(processingResultsBuffer, matToGui, _pContext);
 }
 
 std::unique_ptr<VideoSourcesManager> ManagerBuilder::BuildVideoSourcesManager() const
@@ -27,7 +33,7 @@ std::unique_ptr<VideoSourcesManager> ManagerBuilder::BuildVideoSourcesManager() 
 }
 
 std::unique_ptr<ProcessorsManager> ManagerBuilder::BuildProcessorsManager(const std::vector<std::shared_ptr<IVideoSource>>& videoSources,
-	const std::vector<std::shared_ptr<ProcessingResultProducerConsumer>>& processingResultBuffer) const
+	const std::vector<std::shared_ptr<ProcessingResultProducerConsumer>>& processingResultsBuffer) const
 {
 	std::vector<Processors> processors(videoSources.size());
 	ProcessorBuilder processorBuilder(_mainSettings.settingsRootDir);
@@ -40,7 +46,7 @@ std::unique_ptr<ProcessorsManager> ManagerBuilder::BuildProcessorsManager(const 
 			(_mainSettings.moveDetectorProcessorSettingsPath);
 		videoSources[index]->AddNewObserver(processor._pDifferenceProcessor);
 		processor._pDifferenceProcessor->AddNewObserver(processor._pMoveDetectorProcessor);
-		processor._pMoveDetectorProcessor->AddNewObserver(processingResultBuffer[index]);
+		processor._pMoveDetectorProcessor->AddNewObserver(processingResultsBuffer[index]);
 		index++;
 	}
 	return std::make_unique<ProcessorsManager>(std::move(processors));
@@ -48,5 +54,5 @@ std::unique_ptr<ProcessorsManager> ManagerBuilder::BuildProcessorsManager(const 
 
 std::unique_ptr<InputManager> ManagerBuilder::BuildInputManager() const
 {
-	return std::make_unique<InputManager>(_pClientAppContext);
+	return std::make_unique<InputManager>(_pContext);
 }

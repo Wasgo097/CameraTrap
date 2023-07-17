@@ -17,7 +17,7 @@ MoveDetectionResult MoveDetectorProcessor::Process()
 {
 	const auto& differenceMatBuffer{ _input.differenceResult };
 	if (differenceMatBuffer.empty())
-		return { _input.rawFrame,{} };
+		return { _input.pRawFrame,{} };
 	ClearInternalBuffers();
 	cv::findContours(differenceMatBuffer, _contours, cv::RETR_EXTERNAL, cv::CHAIN_APPROX_SIMPLE);
 	for (auto&& objectPoints : _contours)
@@ -26,7 +26,7 @@ MoveDetectionResult MoveDetectorProcessor::Process()
 	for (auto&& object : _tempObjects)
 		if (!_result.moveDetectionResult.PushNewObject(std::move(object)))
 			break;
-	_result.rawFrame = _input.rawFrame;
+	_result.pRawFrame = _input.pRawFrame;
 	return _result;
 }
 
