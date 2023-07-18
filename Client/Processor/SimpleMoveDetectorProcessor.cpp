@@ -14,9 +14,10 @@ void SimpleMoveDetectorProcessor::SetInput(DifferenceResult input)
 
 MoveDetectionResult SimpleMoveDetectorProcessor::Process()
 {
+	_result.pRawFrame = std::move(_input.pRawFrame);
 	const auto& differenceMatBuffer{ _input.differenceResult };
 	if (differenceMatBuffer.empty())
-		return { _input.pRawFrame,{} };
+		return _result;
 	ClearInternalBuffers();
 	cv::findContours(differenceMatBuffer, _contours, cv::RETR_EXTERNAL, cv::CHAIN_APPROX_SIMPLE);
 	for (auto&& objectPoints : _contours)
@@ -25,7 +26,6 @@ MoveDetectionResult SimpleMoveDetectorProcessor::Process()
 	for (auto&& object : _tempObjects)
 		if (!_result.moveDetectionResult.PushNewObject(std::move(object)))
 			break;
-	_result.pRawFrame = std::move(_input.pRawFrame);
 	return _result;
 }
 

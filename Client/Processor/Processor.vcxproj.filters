@@ -33,12 +33,21 @@
     <ClInclude Include="ProcessorStructs.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="FastMoveDetectorProcessor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SimpleDifferenceProcessor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="SimpleMoveDetectorProcessor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FastMoveDetectorProcessor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ProcessorFactory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

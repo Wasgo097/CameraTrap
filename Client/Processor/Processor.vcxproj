@@ -147,6 +147,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="FastMoveDetectorProcessor.h" />
     <ClInclude Include="SimpleDifferenceProcessor.h" />
     <ClInclude Include="SimpleMoveDetectorProcessor.h" />
     <ClInclude Include="ProcessorFactory.h" />
@@ -154,6 +155,8 @@
     <ClInclude Include="ProcessorStructs.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="FastMoveDetectorProcessor.cpp" />
+    <ClCompile Include="ProcessorFactory.cpp" />
     <ClCompile Include="SimpleDifferenceProcessor.cpp" />
     <ClCompile Include="SimpleMoveDetectorProcessor.cpp" />
   </ItemGroup>

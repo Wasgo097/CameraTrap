@@ -39,7 +39,7 @@ std::unique_ptr<ProcessorsManager> ManagerBuilder::BuildProcessorsManager(const 
 	for (auto& processor : processors)
 	{
 		processor._pDifferenceProcessor = processorBuilder.BuildDifferenceProcessor(_mainSettings.differenceProcessorSettingsPath);
-		processor._pMoveDetectorProcessor = processorBuilder.BuildMotionDetectionResult(_mainSettings.moveDetectorProcessorSettingsPath);
+		processor._pMoveDetectorProcessor = processorBuilder.BuildMoveDetectionResult(_mainSettings.moveDetectorProcessorSettingsPath);
 		videoSources[index]->AddNewObserver(processor._pDifferenceProcessor);
 		processor._pDifferenceProcessor->AddNewObserver(processor._pMoveDetectorProcessor);
 		processor._pMoveDetectorProcessor->AddNewObserver(processingResultsBuffer[index]);

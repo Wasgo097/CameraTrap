@@ -1,6 +1,6 @@
 #include "CalculationResultManager.h"
 #include "Utilities/MatDrawer.h"
-#define STOPWATCH
+//#define STOPWATCH
 #ifdef STOPWATCH
 #include "Utilities/Stopwatch.h"
 #include <iostream>
@@ -35,7 +35,7 @@ void CalculationResultManager::StartResultsProcessing()
 				for (size_t index{ 0ull }; index < asyncResultsFromProducers.size(); index++)
 				{
 					auto result{ asyncResultsFromProducers[index].get() };
-					if (index == _pContext->drawingIndex)
+					if (_pContext->drawWindow and index == _pContext->drawingIndex)
 					{
 						std::unique_lock lock(*_matToGui._pMtx);
 						*_matToGui._pVal = result.pRawFrame->GetMatCRef().clone();
@@ -54,8 +54,6 @@ void CalculationResultManager::StartResultsProcessing()
 
 void CalculationResultManager::StopResultsProcessing()
 {
-	for (const auto& processingResult : _processingResultsBuffer)
-		processingResult->ClearDataBuffer();
 	_workingThreadStopToken.request_stop();
 	if (_pProcessingThread->joinable())
 		_pProcessingThread->join();
