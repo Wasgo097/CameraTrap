@@ -17,4 +17,5 @@ protected:
 	std::shared_ptr<ClientAppContext> _pContext;
 	std::unique_ptr<std::jthread> _pProcessingThread;
 	std::stop_source _workingThreadStopToken;
+	cv::Mat _drawingBuffer;
 };

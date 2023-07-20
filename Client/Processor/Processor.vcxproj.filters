@@ -36,6 +36,9 @@
     <ClInclude Include="FastMoveDetectorProcessor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="FastLowBrightnessCompensationProcessor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SimpleDifferenceProcessor.cpp">
@@ -48,6 +51,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ProcessorFactory.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FastLowBrightnessCompensationProcessor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

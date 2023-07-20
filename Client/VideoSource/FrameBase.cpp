@@ -1,5 +1,5 @@
 #include "FrameBase.h"
-FrameBase::FrameBase(cv::Mat mat, unsigned number) :_mat{ mat }, _number{ number }, _timePoint{ std::chrono::high_resolution_clock::now() } {}
+FrameBase::FrameBase(cv::Mat mat, unsigned number) :_mat{ mat }, _number{ number }, _timePoint{ std::chrono::system_clock::now() } {}
 cv::Mat FrameBase::GetMat() 
 {
 	return _mat;
@@ -16,7 +16,7 @@ unsigned int FrameBase::GetNumber()const
 {
 	return _number;
 }
-std::chrono::time_point<std::chrono::high_resolution_clock> FrameBase::GetTime()const 
+const std::chrono::system_clock::time_point FrameBase::GetTime()const
 {
 	return _timePoint;
 }

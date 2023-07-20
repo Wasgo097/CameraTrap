@@ -2,5 +2,6 @@
   "videoSourceSettingsPaths": [],
   "differenceProcessorSettingsPath": "",
   "moveDetectorProcessorSettingsPath": "",
+  "lowBrightnessCompensationProcessorSettingsPath": "",
   "settingsRootDir": ""
 }

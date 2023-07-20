@@ -37,9 +37,13 @@ void CalculationResultManager::StartResultsProcessing()
 					auto result{ asyncResultsFromProducers[index].get() };
 					if (_pContext->drawWindow and index == _pContext->drawingIndex)
 					{
+						if (result.lowBrightnessCompensationResultOpt)
+							_drawingBuffer = *result.lowBrightnessCompensationResultOpt;
+						else
+							_drawingBuffer = result.pRawFrame->GetMatCopy();
+						MatDrawer::DrawObjectsOnMat(_drawingBuffer, result.moveDetectionResult);
 						std::unique_lock lock(*_matToGui._pMtx);
-						*_matToGui._pVal = result.pRawFrame->GetMatCRef().clone();
-						MatDrawer::DrawObjectsOnMat(*_matToGui._pVal, result.moveDetectionResult);
+						*_matToGui._pVal = _drawingBuffer.clone();
 						lock.unlock();
 					}
 				}
@@ -48,9 +52,9 @@ void CalculationResultManager::StartResultsProcessing()
 				std::cout << "Processing time loop: " << watch.ElapsedMilliseconds() << std::endl;
 				watch.Reset();
 #endif
-					}
-				}, _workingThreadStopToken.get_token());
 			}
+		}, _workingThreadStopToken.get_token());
+}
 
 void CalculationResultManager::StopResultsProcessing()
 {

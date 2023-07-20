@@ -38,9 +38,11 @@ std::unique_ptr<ProcessorsManager> ManagerBuilder::BuildProcessorsManager(const 
 	size_t index{ 0ull };
 	for (auto& processor : processors)
 	{
+		processor._pLowBrightnessCompensationProcessor = processorBuilder.BuildLowBrightnessCompensationProcessor(_mainSettings.lowBrightnessCompensationProcessorSettingsPath);
 		processor._pDifferenceProcessor = processorBuilder.BuildDifferenceProcessor(_mainSettings.differenceProcessorSettingsPath);
 		processor._pMoveDetectorProcessor = processorBuilder.BuildMoveDetectionResult(_mainSettings.moveDetectorProcessorSettingsPath);
-		videoSources[index]->AddNewObserver(processor._pDifferenceProcessor);
+		videoSources[index]->AddNewObserver(processor._pLowBrightnessCompensationProcessor);
+		processor._pLowBrightnessCompensationProcessor->AddNewObserver(processor._pDifferenceProcessor);
 		processor._pDifferenceProcessor->AddNewObserver(processor._pMoveDetectorProcessor);
 		processor._pMoveDetectorProcessor->AddNewObserver(processingResultsBuffer[index]);
 		index++;
