@@ -14,6 +14,8 @@ protected:
 	LowBrightnessCompensationResult _input;
 	DifferenceResult _result;
 	cv::Mat _currentMat;
+	cv::Mat _currentMatWithBlur;
 	cv::Mat _previousMat;
+	cv::Mat _previousMatWithBlur;
 	cv::Mat _difference;
 };

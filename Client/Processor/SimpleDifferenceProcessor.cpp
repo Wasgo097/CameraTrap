@@ -9,11 +9,11 @@ SimpleDifferenceProcessor::SimpleDifferenceProcessor(SimpleDifferenceProcessorSe
 void SimpleDifferenceProcessor::SetInput(LowBrightnessCompensationResult input)
 {
 	_input = std::move(input);
-	_previousMat = std::move(_currentMat);
+	_previousMat = _currentMat;
 	if (_input.lowBrightnessCompensationResult)
-		_currentMat = _input.lowBrightnessCompensationResult->clone();
+		_currentMat = *_input.lowBrightnessCompensationResult;
 	else
-		_currentMat = _input.pRawFrame->GetMatCopy();
+		_currentMat = _input.pRawFrame->GetMatCRef();
 }
 
 DifferenceResult SimpleDifferenceProcessor::Process()
@@ -22,9 +22,9 @@ DifferenceResult SimpleDifferenceProcessor::Process()
 	_result.lowBrightnessCompensationResultOpt = std::move(_input.lowBrightnessCompensationResult);
 	if (_currentMat.empty() or _previousMat.empty())
 		return _result;
-	GaussianBlur(_currentMat, _currentMat, _settings.blurSize, 0);
-	GaussianBlur(_previousMat, _previousMat, _settings.blurSize, 0);
-	cv::absdiff(_currentMat, _previousMat, _difference);
+	GaussianBlur(_currentMat, _currentMatWithBlur, _settings.blurSize, 0);
+	GaussianBlur(_previousMat, _previousMatWithBlur, _settings.blurSize, 0);
+	cv::absdiff(_currentMatWithBlur, _previousMatWithBlur, _difference);
 	cv::threshold(_difference, _result.differenceResult, _settings.threshold, 255, cv::THRESH_BINARY);
 	return _result;
 }
