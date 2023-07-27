@@ -14,9 +14,9 @@ protected:
 	void ManageTempObjects();
 
 	SimpleMoveDetectorProcessorSettings _settings;
-	DifferenceResult _input;
 	MoveDetectionResult _result;
 	std::vector<std::vector<cv::Point>> _contours;
 	std::vector<cv::Rect> _tempObjects;
+	cv::Mat _differenceInput;
 };
 

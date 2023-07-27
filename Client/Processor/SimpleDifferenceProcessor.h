@@ -11,7 +11,6 @@ public:
 	void Notify(LowBrightnessCompensationResult param) override;
 protected:
 	SimpleDifferenceProcessorSettings _settings;
-	LowBrightnessCompensationResult _input;
 	DifferenceResult _result;
 	cv::Mat _currentMat;
 	cv::Mat _currentMatWithBlur;

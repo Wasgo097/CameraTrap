@@ -7,7 +7,7 @@ public:
 	void SetInput(std::shared_ptr<IFrame> input) override;
 	virtual LowBrightnessCompensationResult Process() override;
 	void Notify(std::shared_ptr<IFrame> param) override;
-	bool CheckFrameToProcess()const;
+	bool CheckProcessingConditions()const;
 protected:
 	LowBrightnessCompensationResult _result;
 	cv::Mat _buffer;

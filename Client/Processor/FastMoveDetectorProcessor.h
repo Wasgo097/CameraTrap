@@ -10,6 +10,6 @@ public:
 	void Notify(DifferenceResult param) override;
 protected:
 	std::vector<cv::Point> _whitePixels;
-	DifferenceResult _input;
 	MoveDetectionResult _result;
+	cv::Mat _differenceInput;
 };

@@ -8,18 +8,17 @@ FastMoveDetectorProcessor::FastMoveDetectorProcessor() :
 
 void FastMoveDetectorProcessor::SetInput(DifferenceResult input)
 {
-	_input = std::move(input);
+	_result.pRawFrame = std::move(input.pRawFrame);
+	_result.lowBrightnessCompensationResultOpt = input.lowBrightnessCompensationResultOpt;
+	_differenceInput = input.differenceResult;
 }
 
 MoveDetectionResult FastMoveDetectorProcessor::Process()
 {
-	_result.pRawFrame = std::move(_input.pRawFrame);
-	_result.lowBrightnessCompensationResultOpt = _input.lowBrightnessCompensationResultOpt;
-	const auto& differenceMatBuffer{ _input.differenceResult };
-	if (differenceMatBuffer.empty())
+	if (_differenceInput.empty())
 		return _result;
 	_result.moveDetectionResult.ClearAllObjects();
-	cv::findNonZero(differenceMatBuffer, _whitePixels);
+	cv::findNonZero(_differenceInput, _whitePixels);
 	_result.moveDetectionResult.PushNewObject(cv::boundingRect(_whitePixels));
 	_whitePixels.clear();
 	return _result;

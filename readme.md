@@ -12,7 +12,8 @@
 [X] Multithreading (frame producer and consumer (Observer pattern?))
 [X] Manager which connect all managers
 [X] Refactoring AppClient constructor (connect with previous task?)
-[] Refactor data flow between all processors (mat copying and internal buffers)
+[X] Refactor data flow between all processors (mat copying and internal buffers)
+[] DifferenceProcessor should use any compensation during processing frame after low brightness compensation (settings with additional threshold?)
 ```
 
 ## ToDo Server

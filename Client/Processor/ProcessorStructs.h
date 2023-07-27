@@ -9,7 +9,7 @@ struct ProcessorResultBase
 };
 struct LowBrightnessCompensationResult :public ProcessorResultBase
 {
-	std::optional<cv::Mat> lowBrightnessCompensationResult;
+	std::optional<cv::Mat> lowBrightnessCompensationResultOpt;
 };
 struct DifferenceResult :public ProcessorResultBase
 {
