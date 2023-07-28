@@ -19,19 +19,19 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="UdpExporter.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="UdpExporter.cpp" />
+  </ItemGroup>
+  <ItemGroup>
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="FrameExporter.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="FrameExporter.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{3a797e1c-d38d-4893-8d92-f327e2993157}</ProjectGuid>
-    <RootNamespace>Export</RootNamespace>
+    <ProjectGuid>{90147196-83ea-426c-a007-eb1ac6c8cde7}</ProjectGuid>
+    <RootNamespace>Exporter</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />

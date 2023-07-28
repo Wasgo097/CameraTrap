@@ -33,5 +33,13 @@
     <ClInclude Include="IObservable.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="IMoveDetectionResultExporter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Source.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
