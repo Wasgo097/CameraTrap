@@ -19,9 +19,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="DetectionResultSerializer.h" />
     <ClInclude Include="UdpExporter.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="DetectionResultSerializer.cpp" />
     <ClCompile Include="UdpExporter.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -154,11 +156,15 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
     <Import Project="..\packages\MyOpenCv.4.7.0\build\native\MyOpenCv.targets" Condition="Exists('..\packages\MyOpenCv.4.7.0\build\native\MyOpenCv.targets')" />
+    <Import Project="..\packages\MyASIOLib.1.0.0\build\native\MyASIOLib.targets" Condition="Exists('..\packages\MyASIOLib.1.0.0\build\native\MyASIOLib.targets')" />
+    <Import Project="..\packages\nlohmann.json.3.11.2\build\native\nlohmann.json.targets" Condition="Exists('..\packages\nlohmann.json.3.11.2\build\native\nlohmann.json.targets')" />
   </ImportGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\MyOpenCv.4.7.0\build\native\MyOpenCv.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MyOpenCv.4.7.0\build\native\MyOpenCv.targets'))" />
+    <Error Condition="!Exists('..\packages\MyASIOLib.1.0.0\build\native\MyASIOLib.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MyASIOLib.1.0.0\build\native\MyASIOLib.targets'))" />
+    <Error Condition="!Exists('..\packages\nlohmann.json.3.11.2\build\native\nlohmann.json.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\nlohmann.json.3.11.2\build\native\nlohmann.json.targets'))" />
   </Target>
 </Project>
