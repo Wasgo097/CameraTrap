@@ -5,9 +5,9 @@ class DetectionResultSerializer
 {
 public:
 	std::string Serialize(const MoveDetectionResult& detectionResult);
+protected:
 	void SerializeImage(const cv::Mat& image);
 	void SerializeObjects(const Objects& objects);
-protected:
 	std::string _serializationHeader;
 	std::string _serializationImage;
 	std::string _serializationObjects;

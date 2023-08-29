@@ -1,7 +1,9 @@
 #pragma once
 #include "Interfaces/IMoveDetectionResultExporter.h"
 #include "Settings/UdpExporterSettings.h"
+#include "DetectionResultSerializer.h"
 #include <asio.hpp>
+#include <memory>
 class UdpExporter :public IMoveDetectionResultExporter
 {
 public:
@@ -11,6 +13,8 @@ protected:
 	constexpr static size_t CHUNK_SIZE = 65507;
 	UdpExporterSettings _settings;
 	asio::io_context _ioContext;
-	//asio::ip::udp::socket _socket;
+	std::unique_ptr<asio::ip::udp::socket> _pSocket;
 	asio::ip::basic_resolver_entry<asio::ip::udp> _endpoint;
+	std::string _serializationBuffer;
+	DetectionResultSerializer _serializer;
 };

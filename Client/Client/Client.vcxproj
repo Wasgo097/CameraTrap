@@ -146,6 +146,9 @@
     <ProjectReference Include="..\Controller\Controller.vcxproj">
       <Project>{b5e51acd-6508-403c-9683-e5c3b9a2de20}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\Exporter\Exporter.vcxproj">
+      <Project>{90147196-83ea-426c-a007-eb1ac6c8cde7}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\Manager\Manager.vcxproj">
       <Project>{aa0c145d-6664-459d-a0f5-01f35f562a9a}</Project>
     </ProjectReference>

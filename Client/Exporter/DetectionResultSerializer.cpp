@@ -24,8 +24,8 @@ void DetectionResultSerializer::SerializeImage(const cv::Mat& image)
 		_serializationImage.assign(image.data, image.data + image.total() * image.elemSize());
 	else
 		for (int i = 0; i < image.rows; ++i)
-			_serializationImage.insert(_serializationImage.end(), image.ptr<uchar>(i), image.ptr<uchar>(i) + image.cols * image.channels());
-	return;
+			_serializationImage.insert(_serializationImage.end(), image.ptr<uchar>(i),
+				image.ptr<uchar>(i) + image.cols * image.channels());
 }
 
 void DetectionResultSerializer::SerializeObjects(const Objects& objects)
