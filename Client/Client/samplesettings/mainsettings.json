@@ -3,5 +3,7 @@
   "differenceProcessorSettingsPath": "",
   "moveDetectorProcessorSettingsPath": "",
   "lowBrightnessCompensationProcessorSettingsPath": "",
-  "settingsRootDir": ""
+  "settingsRootDir": "",
+  "exporterSettingsPath": "",
+  "serializationType": "Simple"
 }

@@ -18,7 +18,10 @@
     <ClInclude Include="UdpExporter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="DetectionResultSerializer.h">
+    <ClInclude Include="SimpleDetectionResultSerializer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ExporterBuilder.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -26,7 +29,10 @@
     <ClCompile Include="UdpExporter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="DetectionResultSerializer.cpp">
+    <ClCompile Include="SimpleDetectionResultSerializer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ExporterBuilder.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

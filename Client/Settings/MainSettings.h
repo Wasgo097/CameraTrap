@@ -2,6 +2,7 @@
 #include <nlohmann/json.hpp>
 #include <string>
 #include <vector>
+#include "Utilities/SerializationHelper.h"
 struct MainSettings
 {
 	std::string settingsRootDir;
@@ -9,5 +10,7 @@ struct MainSettings
 	std::string differenceProcessorSettingsPath;
 	std::string moveDetectorProcessorSettingsPath;
 	std::string lowBrightnessCompensationProcessorSettingsPath;
+	std::string exporterSettingsPath;
+	SerializationType serializationType;
 };
-NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(MainSettings, settingsRootDir, videoSourceSettingsPaths, differenceProcessorSettingsPath, moveDetectorProcessorSettingsPath, lowBrightnessCompensationProcessorSettingsPath)
+NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(MainSettings, settingsRootDir, videoSourceSettingsPaths, differenceProcessorSettingsPath, moveDetectorProcessorSettingsPath, lowBrightnessCompensationProcessorSettingsPath, exporterSettingsPath, serializationType)

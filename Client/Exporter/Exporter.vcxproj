@@ -19,11 +19,13 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="DetectionResultSerializer.h" />
+    <ClInclude Include="ExporterBuilder.h" />
+    <ClInclude Include="SimpleDetectionResultSerializer.h" />
     <ClInclude Include="UdpExporter.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="DetectionResultSerializer.cpp" />
+    <ClCompile Include="ExporterBuilder.cpp" />
+    <ClCompile Include="SimpleDetectionResultSerializer.cpp" />
     <ClCompile Include="UdpExporter.cpp" />
   </ItemGroup>
   <ItemGroup>

@@ -1,6 +1,6 @@
-#include "DetectionResultSerializer.h"
+#include "SimpleDetectionResultSerializer.h"
 #include <format>
-std::string DetectionResultSerializer::Serialize(const MoveDetectionResult& detectionResult)
+std::string SimpleDetectionResultSerializer::Serialize(const MoveDetectionResult& detectionResult)
 {
 	const auto& imageToSerialization{ detectionResult.lowBrightnessCompensationResultOpt ?
 		detectionResult.pRawFrame->GetMatCRef() : *detectionResult.lowBrightnessCompensationResultOpt };
@@ -13,11 +13,11 @@ std::string DetectionResultSerializer::Serialize(const MoveDetectionResult& dete
 	_serializationResult.clear();
 	_serializationResult = std::move(_serializationHeader) + _separator +
 		std::move(_serializationImage) + _separator +
-		std::move(_serializationObjects);
+		std::move(_serializationObjects)+_packetEnd;
 	return _serializationResult;
 }
 
-void DetectionResultSerializer::SerializeImage(const cv::Mat& image)
+void SimpleDetectionResultSerializer::SerializeImage(const cv::Mat& image)
 {
 	_serializationImage.clear();
 	if (image.isContinuous())
@@ -28,7 +28,12 @@ void DetectionResultSerializer::SerializeImage(const cv::Mat& image)
 				image.ptr<uchar>(i) + image.cols * image.channels());
 }
 
-void DetectionResultSerializer::SerializeObjects(const Objects& objects)
+void SimpleDetectionResultSerializer::SerializeObjects(const Objects& objects)
 {
 	_serializationObjects.clear();
+}
+
+SerializationType SimpleDetectionResultSerializer::GetSerializationType() const
+{
+	return SerializationType::Simple;
 }

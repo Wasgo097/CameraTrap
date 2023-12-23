@@ -10,5 +10,5 @@ public:
 	std::shared_ptr<IProcessor<DifferenceResult, LowBrightnessCompensationResult>> BuildDifferenceProcessor(const std::string& path)const;
 	std::shared_ptr<IProcessor<MoveDetectionResult, DifferenceResult>> BuildMoveDetectionResult(const std::string& path)const;
 protected:
-	SettingsBuilder _settingsBuilder;
+	const SettingsBuilder _settingsBuilder;
 };
