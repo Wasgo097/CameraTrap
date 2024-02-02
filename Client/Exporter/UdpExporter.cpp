@@ -3,7 +3,7 @@
 
 using namespace std::chrono_literals;
 UdpExporter::UdpExporter(UdpExporterSettings settings, std::unique_ptr<IDetectionResultSerializer>&& pSerializer) :
-	_settings{ std::move(settings) }, _pSerializer{std::move(pSerializer)}
+	_settings{ std::move(settings) }, _pSerializer{ std::move(pSerializer) }
 {
 	asio::ip::udp::resolver resolver(_ioContext);
 	_endpoint = *resolver.resolve(_settings.udpServerIp, _settings.serverPort).begin();
@@ -22,7 +22,7 @@ bool UdpExporter::ExportData(const MoveDetectionResult& dataToExport)
 		size_t offset{ i * CHUNK_SIZE };
 		size_t size{ std::min(CHUNK_SIZE, _serializationBuffer.size() - offset) };
 		_pSocket->send_to(asio::buffer(&_serializationBuffer[offset], size), _endpoint);
-		std::this_thread::sleep_for(2ms);
+		std::this_thread::sleep_for(100ms);
 	}
 	return true;
 }

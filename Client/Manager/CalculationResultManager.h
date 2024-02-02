@@ -2,13 +2,15 @@
 #include "Utilities/MultiThreading/ThreadsResource.h"
 #include "Utilities/MultiThreading/ProcessingResultProducerConsumer.h"
 #include "Utilities/ClientAppContext.h"
+#include "Interfaces/IMoveDetectionResultExporter.h"
 #include <opencv2/core/mat.hpp>
 class CalculationResultManager
 {
 public:
 	CalculationResultManager(const std::vector<std::shared_ptr<ProcessingResultProducerConsumer>>& processingResultsBuffer,
 		ThreadsResourcePtr<cv::Mat> matToGui,
-		std::shared_ptr<ClientAppContext> pContext);
+		std::shared_ptr<ClientAppContext> pContext,
+		std::unique_ptr<IMoveDetectionResultExporter>&& resultExporter);
 	void StartResultsProcessing();
 	void StopResultsProcessing();
 protected:
@@ -16,6 +18,7 @@ protected:
 	ThreadsResourcePtr<cv::Mat> _matToGui;
 	std::shared_ptr<ClientAppContext> _pContext;
 	std::unique_ptr<std::jthread> _pProcessingThread;
+	std::unique_ptr<IMoveDetectionResultExporter> _resultExporter;
 	std::stop_source _workingThreadStopToken;
 	cv::Mat _drawingBuffer;
 };

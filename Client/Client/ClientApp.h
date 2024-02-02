@@ -19,7 +19,7 @@ protected:
 	std::unique_ptr<CalculationResultManager> _pCalculationResultManager;
 	std::shared_ptr<ClientAppContext> _pContext;
 	ThreadsResourcePtr<cv::Mat> _matToGui;
-	cv::Mat _emptyMatToGui{1, 1, CV_8UC3, cv::Scalar(255, 255, 255)};
 	std::vector<std::shared_ptr<ProcessingResultProducerConsumer>> _processingResultsBuffer;
+	const cv::Mat _emptyMatToGui{1, 1, CV_8UC3, cv::Scalar(255, 255, 255)};
 	const static std::string _windowName;
 };

@@ -1,7 +1,7 @@
 #pragma once
+#include "Interfaces/IDetectionResultSerializer.h"
 #include "Interfaces/IMoveDetectionResultExporter.h"
 #include "Settings/UdpExporterSettings.h"
-#include "Interfaces/IDetectionResultSerializer.h"
 #include <asio.hpp>
 #include <memory>
 class UdpExporter :public IMoveDetectionResultExporter

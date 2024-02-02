@@ -1,6 +1,7 @@
 #include "ManagerBuilder.h"
 #include "VideoSource/VideoSourceBuilder.h"
 #include "Processor/ProcessorFactory.h"
+#include "Exporter/ExporterBuilder.h"
 ManagerBuilder::ManagerBuilder(const MainSettings& mainSettings, std::shared_ptr<ClientAppContext> pContext) :
 	_mainSettings{ mainSettings },
 	_pContext{ std::move(pContext) }
@@ -21,7 +22,8 @@ std::unique_ptr<CalculationManager> ManagerBuilder::BuildCalculationManager(cons
 std::unique_ptr<CalculationResultManager> ManagerBuilder::BuildCalculationResultManager(const std::vector<std::shared_ptr<ProcessingResultProducerConsumer>>& processingResultsBuffer,
 	ThreadsResourcePtr<cv::Mat> matToGui) const
 {
-	return std::make_unique<CalculationResultManager>(processingResultsBuffer, matToGui, _pContext);
+	ExporterBuilder exporterBuilder(_mainSettings.settingsRootDir);
+	return std::make_unique<CalculationResultManager>(processingResultsBuffer, matToGui, _pContext, exporterBuilder.BuildExporter(_mainSettings.exporterSettingsPath));
 }
 
 std::unique_ptr<VideoSourcesManager> ManagerBuilder::BuildVideoSourcesManager() const

@@ -1,5 +1,5 @@
-//#define APP
-#define UDPTEST
+#define APP
+//#define UDPTEST
 //#define UDPTEST2
 //#define TCPTEST
 //#define IMGPROCTEST

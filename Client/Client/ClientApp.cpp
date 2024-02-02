@@ -8,7 +8,7 @@
 #include <iostream>
 #endif
 const std::string ClientApp::_windowName{"ClientViewer"};
-ClientApp::ClientApp() :_pContext{ std::make_shared<ClientAppContext>() }, _matToGui{ std::make_shared<cv::Mat>(1, 1, CV_8UC3, cv::Scalar(255, 255, 255)) }
+ClientApp::ClientApp() : _matToGui{ std::make_shared<cv::Mat>(1, 1, CV_8UC3, cv::Scalar(255, 255, 255)) }
 {
 	InitMainSettings();
 	InitAppContext();
