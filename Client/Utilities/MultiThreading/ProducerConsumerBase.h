@@ -22,19 +22,7 @@ public:
 				return !_dataQueue.empty();
 			});
 		T data = _dataQueue.back();
-		_dataQueue.pop_back();
-		return data;
-	}
-
-	T ConsumeOldest()
-	{
-		std::unique_lock<std::mutex> lock(_mtx);
-		_cv.wait(lock, [this]
-			{
-				return !_dataQueue.empty();
-			});
-		T data = _dataQueue.front();
-		_dataQueue.pop_front();
+		std::deque<T>().swap(_dataQueue);
 		return data;
 	}
 protected:

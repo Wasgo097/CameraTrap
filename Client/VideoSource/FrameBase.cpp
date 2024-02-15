@@ -1,9 +1,5 @@
 #include "FrameBase.h"
 FrameBase::FrameBase(cv::Mat mat, unsigned number) :_mat{ mat }, _number{ number }, _timePoint{ std::chrono::system_clock::now() } {}
-cv::Mat FrameBase::GetMat() 
-{
-	return _mat;
-}
 const cv::Mat& FrameBase::GetMatCRef() const
 {
 	return _mat;

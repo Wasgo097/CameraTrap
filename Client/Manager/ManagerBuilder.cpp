@@ -12,8 +12,7 @@ std::unique_ptr<CalculationManager> ManagerBuilder::BuildCalculationManager(cons
 	auto pVideoSourcesManager{ BuildVideoSourcesManager() };
 	if (!pVideoSourcesManager)
 		throw std::invalid_argument(std::format("VideoSourcesManager is null in CalculationManager").c_str());
-	const auto& videoSources{ pVideoSourcesManager->GetVideoSources() };
-	auto pProcessorsManager{ BuildProcessorsManager(videoSources,processingResultsBuffer) };
+	auto pProcessorsManager{ BuildProcessorsManager(pVideoSourcesManager->GetVideoSources(),processingResultsBuffer) };
 	if (!pProcessorsManager)
 		throw std::invalid_argument(std::format("ProcessorsManager is null in CalculationManager").c_str());
 	return std::make_unique<CalculationManager>(std::move(pVideoSourcesManager), std::move(pProcessorsManager));

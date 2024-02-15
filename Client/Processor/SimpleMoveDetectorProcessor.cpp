@@ -20,8 +20,12 @@ MoveDetectionResult SimpleMoveDetectorProcessor::Process()
 		return _result;
 	ClearInternalBuffers();
 	cv::findContours(_differenceInput, _contours, cv::RETR_EXTERNAL, cv::CHAIN_APPROX_SIMPLE);
-	for (auto&& objectPoints : _contours)
-		_tempObjects.emplace_back(cv::boundingRect(std::move(objectPoints)));
+	for (const auto& objectPoints : _contours)
+	{
+		auto rect{ cv::boundingRect(objectPoints) };
+		if (_settings.minObjectArea > 0 and rect.area() >= _settings.minObjectArea)
+			_tempObjects.emplace_back(rect);
+	}
 	ManageTempObjects();
 	for (auto&& object : _tempObjects)
 		if (!_result.moveDetectionResult.PushNewObject(std::move(object)))
@@ -44,12 +48,12 @@ void SimpleMoveDetectorProcessor::ClearInternalBuffers()
 
 void SimpleMoveDetectorProcessor::ManageTempObjects()
 {
-	if (_settings.minObjectArea > 0)
-	{
-		auto rangeToRemove{ std::ranges::remove_if(_tempObjects, [this](const auto& rect)
-			{
-				return rect.area() < _settings.minObjectArea;
-			}) };
-		_tempObjects.erase(rangeToRemove.begin(), rangeToRemove.end());
-	}
+	//if (_settings.minObjectArea > 0)
+	//{
+	//	auto rangeToRemove{ std::ranges::remove_if(_tempObjects, [this](const auto& rect)
+	//		{
+	//			return rect.area() < _settings.minObjectArea;
+	//		}) };
+	//	_tempObjects.erase(rangeToRemove.begin(), rangeToRemove.end());
+	//}
 }

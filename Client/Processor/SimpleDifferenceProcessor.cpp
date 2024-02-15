@@ -10,7 +10,7 @@ void SimpleDifferenceProcessor::SetInput(LowBrightnessCompensationResult input)
 {
 	_result.pRawFrame = std::move(input.pRawFrame);
 	_result.lowBrightnessCompensationResultOpt = std::move(input.lowBrightnessCompensationResultOpt);
-	_previousMat = _currentMat;
+	_previousMat = std::move(_currentMat);
 	if (_result.lowBrightnessCompensationResultOpt)
 		_currentMat = *_result.lowBrightnessCompensationResultOpt;
 	else

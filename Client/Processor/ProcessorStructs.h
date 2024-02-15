@@ -11,13 +11,11 @@ struct LowBrightnessCompensationResult :public ProcessorResultBase
 {
 	std::optional<cv::Mat> lowBrightnessCompensationResultOpt;
 };
-struct DifferenceResult :public ProcessorResultBase
+struct DifferenceResult :public LowBrightnessCompensationResult
 {
 	cv::Mat differenceResult;
-	std::optional<cv::Mat> lowBrightnessCompensationResultOpt;
 };
-struct MoveDetectionResult :public ProcessorResultBase
+struct MoveDetectionResult :public LowBrightnessCompensationResult
 {
 	Objects moveDetectionResult;
-	std::optional<cv::Mat> lowBrightnessCompensationResultOpt;
 };

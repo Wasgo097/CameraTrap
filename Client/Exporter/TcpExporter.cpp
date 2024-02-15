@@ -13,17 +13,6 @@ TcpExporter::TcpExporter(TcpExporterSettings settings, std::unique_ptr<IDetectio
 
 void TcpExporter::ExportData(const MoveDetectionResult& dataToExport)
 {
-	std::ignore = dataToExport;
-	std::string message{ "Hello server!\r" };
-	try
-	{
-		_pSocket->send((asio::buffer(message.data(), message.size())));
-	}
-	catch (const std::exception& ex)
-	{
-		auto what = ex.what();
-		int x = 1;
-		int y = 2;
-		int z = x + y;
-	}
+	_serializationBuffer = std::move(_pSerializer->Serialize(dataToExport));
+	_pSocket->send((asio::buffer(_serializationBuffer.data(), _serializationBuffer.size())));
 }

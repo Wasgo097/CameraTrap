@@ -30,17 +30,14 @@ void CalculationResultManager::StartResultsProcessing()
 			while (!stopToken.stop_requested())
 			{
 				for (const auto& processingResultBuffer : _processingResultsBuffer)
-				{
 					asyncResultsFromProducers.push_back(std::async(std::launch::async | std::launch::deferred, &ProcessingResultProducerConsumer::ConsumeNewest, processingResultBuffer.get()));
-					processingResultBuffer->ClearDataBuffer();
-				}
 				for (size_t index{ 0ull }; index < asyncResultsFromProducers.size(); index++)
 				{
 					auto result{ asyncResultsFromProducers[index].get() };
 					if (_pContext->drawWindow and index == _pContext->drawingIndex)
 					{
 						if (result.lowBrightnessCompensationResultOpt)
-							_drawingBuffer = *result.lowBrightnessCompensationResultOpt;
+							_drawingBuffer = result.lowBrightnessCompensationResultOpt->clone();
 						else
 							_drawingBuffer = result.pRawFrame->GetMatCopy();
 						MatDrawer::DrawObjectsOnMat(_drawingBuffer, result.moveDetectionResult);

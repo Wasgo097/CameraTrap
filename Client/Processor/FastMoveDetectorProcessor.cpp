@@ -9,8 +9,8 @@ FastMoveDetectorProcessor::FastMoveDetectorProcessor() :
 void FastMoveDetectorProcessor::SetInput(DifferenceResult input)
 {
 	_result.pRawFrame = std::move(input.pRawFrame);
-	_result.lowBrightnessCompensationResultOpt = input.lowBrightnessCompensationResultOpt;
-	_differenceInput = input.differenceResult;
+	_result.lowBrightnessCompensationResultOpt = std::move(input.lowBrightnessCompensationResultOpt);
+	_differenceInput = std::move(input.differenceResult);
 }
 
 MoveDetectionResult FastMoveDetectorProcessor::Process()

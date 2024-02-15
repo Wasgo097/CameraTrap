@@ -8,5 +8,4 @@ class ProcessingResultProducerConsumer :public IObserver<MoveDetectionResult>,
 {
 public:
 	void Notify(MoveDetectionResult param) override;
-	void ClearDataBuffer();
 };

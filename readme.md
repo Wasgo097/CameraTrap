@@ -13,7 +13,7 @@
 [X] Manager which connect all managers
 [X] Refactoring AppClient constructor (connect with previous task?)
 [X] Refactor data flow between all processors (mat copying and internal buffers)
-[] DifferenceProcessor should use any compensation during processing frame after low brightness compensation (settings with additional threshold?)
+[] DifferenceProcessor should use noise compensation during processing frame after low brightness compensation (settings with additional threshold?)
 ```
 
 ## ToDo Server
