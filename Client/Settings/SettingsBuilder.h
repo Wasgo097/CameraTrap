@@ -1,8 +1,8 @@
 #pragma once
-#include <string>
 #include <filesystem>
 #include <fstream>
 #include <nlohmann/json.hpp>
+#include <string>
 class SettingsBuilder
 {
 public:
@@ -13,7 +13,6 @@ public:
 		const std::string finalPath = _rootDir + path;
 		if (!std::filesystem::exists(finalPath))
 			throw std::invalid_argument{ std::format("Final path: {} in SettingsBuilder::GetSettingsFromFile doesn't exist", finalPath).c_str() };
-
 		std::ifstream str(finalPath);
 		std::optional<T> settings;
 		nlohmann::json jfile;

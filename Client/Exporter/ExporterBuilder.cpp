@@ -1,5 +1,6 @@
 #include "Exporter/SimpleDetectionResultSerializer.h"
 #include "Exporter/UdpExporter.h"
+#include "Exporter/TcpExporter.h"
 #include "ExporterBuilder.h"
 #include <exception>
 std::unique_ptr<IMoveDetectionResultExporter> ExporterBuilder::BuildExporter(const std::string& exporterPath, SerializationType serializationType)
@@ -8,6 +9,8 @@ std::unique_ptr<IMoveDetectionResultExporter> ExporterBuilder::BuildExporter(con
 	std::unique_ptr<IMoveDetectionResultExporter> exporter;
 	if (auto udpExporterSettings{ _settingsBuilder.GetSettingsFromFile<UdpExporterSettings>(exporterPath) })
 		exporter = std::make_unique<UdpExporter>(*udpExporterSettings, std::move(serializer));
+	else if (auto tcpExporterSettings{ _settingsBuilder.GetSettingsFromFile<TcpExporterSettings>(exporterPath) })
+		exporter = std::make_unique<TcpExporter>(*tcpExporterSettings, std::move(serializer));
 	return exporter;
 }
 

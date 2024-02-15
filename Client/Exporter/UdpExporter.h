@@ -8,9 +8,9 @@ class UdpExporter :public IMoveDetectionResultExporter
 {
 public:
 	UdpExporter(UdpExporterSettings settings, std::unique_ptr<IDetectionResultSerializer>&& pSerializer);
-	bool ExportData(const MoveDetectionResult& dataToExport) override;
+	void ExportData(const MoveDetectionResult& dataToExport) override;
 protected:
-	constexpr static size_t CHUNK_SIZE = 65507;
+	constexpr static size_t MAX_UDP_CHUNK_SIZE = 65507;
 	UdpExporterSettings _settings;
 	asio::io_context _ioContext;
 	std::unique_ptr<asio::ip::udp::socket> _pSocket;

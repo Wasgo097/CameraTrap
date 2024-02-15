@@ -34,7 +34,7 @@ void SimpleDetectionResultSerializer::SerializeObjects(const Objects& objects)
 	{
 		const auto& tl = obj.tl();
 		const auto& br = obj.br();
-		_serializationObjects += std::to_string(tl.x) + ';' + std::to_string(tl.y) + ';' + std::to_string(br.x) + ';' + std::to_string(br.y) + ';';
+		_serializationObjects += std::to_string(tl.x) + ';' + std::to_string(tl.y) + ';' + std::to_string(br.x) + ';' + std::to_string(br.y) + 'X';
 	}
 }
 

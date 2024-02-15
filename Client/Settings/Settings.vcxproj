@@ -159,6 +159,7 @@
     <ClInclude Include="SimpleMoveDetectorProcessorSettings.h" />
     <ClInclude Include="OpenCVStructsToJson.h" />
     <ClInclude Include="SettingsBuilder.h" />
+    <ClInclude Include="TcpExporterSettings.h" />
     <ClInclude Include="UdpExporterSettings.h" />
   </ItemGroup>
   <ItemGroup>

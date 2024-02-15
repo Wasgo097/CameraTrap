@@ -24,6 +24,9 @@
     <ClInclude Include="ExporterBuilder.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="TcpExporter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="UdpExporter.cpp">
@@ -33,6 +36,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ExporterBuilder.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TcpExporter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

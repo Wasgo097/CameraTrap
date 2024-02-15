@@ -11,18 +11,24 @@ UdpExporter::UdpExporter(UdpExporterSettings settings, std::unique_ptr<IDetectio
 	_pSocket->open(asio::ip::udp::v4());
 }
 
-bool UdpExporter::ExportData(const MoveDetectionResult& dataToExport)
+void UdpExporter::ExportData(const MoveDetectionResult& dataToExport)
 {
 	_serializationBuffer = std::move(_pSerializer->Serialize(dataToExport));
-	size_t numChunks{ _serializationBuffer.size() / CHUNK_SIZE };
-	if (_serializationBuffer.size() % CHUNK_SIZE != 0)
-		numChunks++;
-	for (size_t i{ 0ull }; i < numChunks; ++i)
+	size_t offset{ 0ull };
+	while (offset < _serializationBuffer.size())
 	{
-		size_t offset{ i * CHUNK_SIZE };
-		size_t size{ std::min(CHUNK_SIZE, _serializationBuffer.size() - offset) };
-		_pSocket->send_to(asio::buffer(&_serializationBuffer[offset], size), _endpoint);
-		std::this_thread::sleep_for(100ms);
+		size_t bytesToSend{ std::min(MAX_UDP_CHUNK_SIZE,_serializationBuffer.size() - offset) };
+		offset += _pSocket->send_to(asio::buffer(&_serializationBuffer[offset], bytesToSend), _endpoint);
+		std::this_thread::sleep_for(10ms);
 	}
-	return true;
+	//size_t numChunks{ _serializationBuffer.size() / CHUNK_SIZE };
+	//if (_serializationBuffer.size() % CHUNK_SIZE != 0)
+	//	numChunks++;
+	//for (size_t i{ 0ull }; i < numChunks; ++i)
+	//{
+	//	size_t offset{ i * CHUNK_SIZE };
+	//	size_t size{ std::min(CHUNK_SIZE, _serializationBuffer.size() - offset) };
+	//	_pSocket->send_to(asio::buffer(&_serializationBuffer[offset], size), _endpoint);
+	//	std::this_thread::sleep_for(10ms);
+	//}
 }
