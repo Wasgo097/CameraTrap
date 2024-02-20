@@ -22,7 +22,7 @@ std::unique_ptr<CalculationResultManager> ManagerBuilder::BuildCalculationResult
 	ThreadsResourcePtr<cv::Mat> matToGui) const
 {
 	ExporterBuilder exporterBuilder(_mainSettings.settingsRootDir);
-	return std::make_unique<CalculationResultManager>(processingResultsBuffer, matToGui, _pContext, exporterBuilder.BuildExporter(_mainSettings.exporterSettingsPath));
+	return std::make_unique<CalculationResultManager>(processingResultsBuffer, matToGui, _pContext, exporterBuilder.BuildExporters(_mainSettings.exporterSettingsPaths));
 }
 
 std::unique_ptr<VideoSourcesManager> ManagerBuilder::BuildVideoSourcesManager() const

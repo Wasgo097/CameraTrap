@@ -4,6 +4,6 @@
   "moveDetectorProcessorSettingsPath": "",
   "lowBrightnessCompensationProcessorSettingsPath": "",
   "settingsRootDir": "",
-  "exporterSettingsPath": "",
+  "exporterSettingsPaths": [],
   "serializationType": "Simple"
 }

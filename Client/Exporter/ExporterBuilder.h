@@ -9,6 +9,7 @@ class ExporterBuilder
 public:
 	ExporterBuilder(std::string exporterSettingsRootPath);
 	std::unique_ptr<IMoveDetectionResultExporter> BuildExporter(const std::string& exporterPath, SerializationType serializationType = SerializationType::Simple);
+	std::vector< std::unique_ptr<IMoveDetectionResultExporter>> BuildExporters(const std::vector<std::string>& exporterPaths, SerializationType serializationType = SerializationType::Simple);
 protected:
 	std::unique_ptr<IDetectionResultSerializer> BuildSerializer(SerializationType serializationType);
 	const SettingsBuilder _settingsBuilder;

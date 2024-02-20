@@ -17,4 +17,5 @@ protected:
 	cv::Mat _previousMat;
 	cv::Mat _previousMatWithBlur;
 	cv::Mat _difference;
+	bool useAdditionalThresholdAfterLowBrightnessCompensation{ false };
 };

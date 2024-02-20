@@ -11,7 +11,6 @@ public:
 	void Notify(DifferenceResult param) override;
 protected:
 	void ClearInternalBuffers();
-	void ManageTempObjects();
 
 	SimpleMoveDetectorProcessorSettings _settings;
 	MoveDetectionResult _result;

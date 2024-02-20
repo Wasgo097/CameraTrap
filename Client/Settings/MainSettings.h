@@ -10,7 +10,7 @@ struct MainSettings
 	std::string differenceProcessorSettingsPath;
 	std::string moveDetectorProcessorSettingsPath;
 	std::string lowBrightnessCompensationProcessorSettingsPath;
-	std::string exporterSettingsPath;
+	std::vector<std::string> exporterSettingsPaths;
 	SerializationType serializationType;
 };
-NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(MainSettings, settingsRootDir, videoSourceSettingsPaths, differenceProcessorSettingsPath, moveDetectorProcessorSettingsPath, lowBrightnessCompensationProcessorSettingsPath, exporterSettingsPath, serializationType)
+NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(MainSettings, settingsRootDir, videoSourceSettingsPaths, differenceProcessorSettingsPath, moveDetectorProcessorSettingsPath, lowBrightnessCompensationProcessorSettingsPath, exporterSettingsPaths, serializationType)

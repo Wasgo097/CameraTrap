@@ -20,12 +20,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ExporterBuilder.h" />
+    <ClInclude Include="FileExporter.h" />
     <ClInclude Include="SimpleDetectionResultSerializer.h" />
     <ClInclude Include="TcpExporter.h" />
     <ClInclude Include="UdpExporter.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ExporterBuilder.cpp" />
+    <ClCompile Include="FileExporter.cpp" />
     <ClCompile Include="SimpleDetectionResultSerializer.cpp" />
     <ClCompile Include="TcpExporter.cpp" />
     <ClCompile Include="UdpExporter.cpp" />

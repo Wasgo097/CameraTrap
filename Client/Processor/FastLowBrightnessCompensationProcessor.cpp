@@ -10,7 +10,7 @@ LowBrightnessCompensationResult FastLowBrightnessCompensationProcessor::Process(
 {
 	if (CheckProcessingConditions())
 	{
-		cv::normalize(_result.pRawFrame->GetMatCRef(), _buffer, 0, 255, cv::NORM_MINMAX);
+		cv::normalize(_result.pRawFrame->GetMatCRef(), _buffer, 0.0, 255.0, cv::NORM_MINMAX);
 		_result.lowBrightnessCompensationResultOpt = std::move(_buffer);
 	}
 	return _result;

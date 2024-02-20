@@ -8,11 +8,11 @@ TcpExporter::TcpExporter(TcpExporterSettings settings, std::unique_ptr<IDetectio
 	_pSocket{ std::make_unique<asio::ip::tcp::socket>(_ioService,_endpoint.protocol()) },
 	_pSerializer{ std::move(pSerializer) }
 {
-	_pSocket->connect(_endpoint);
+	//_pSocket->connect(_endpoint);
 }
 
 void TcpExporter::ExportData(const MoveDetectionResult& dataToExport)
 {
 	_serializationBuffer = std::move(_pSerializer->Serialize(dataToExport));
-	_pSocket->send((asio::buffer(_serializationBuffer.data(), _serializationBuffer.size())));
+	//_pSocket->send((asio::buffer(_serializationBuffer.data(), _serializationBuffer.size())));
 }

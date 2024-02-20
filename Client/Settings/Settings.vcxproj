@@ -153,6 +153,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CameraVideoSourceSettings.h" />
+    <ClInclude Include="FileExporterSettings.h" />
     <ClInclude Include="SimpleDifferenceProcessorSettings.h" />
     <ClInclude Include="FileVideoSourceSettings.h" />
     <ClInclude Include="MainSettings.h" />

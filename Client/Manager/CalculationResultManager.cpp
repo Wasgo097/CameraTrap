@@ -9,11 +9,11 @@
 CalculationResultManager::CalculationResultManager(const std::vector<std::shared_ptr<ProcessingResultProducerConsumer>>& processingResultsBuffer,
 	ThreadsResourcePtr<cv::Mat> matToGui,
 	std::shared_ptr<ClientAppContext> pContext,
-	std::unique_ptr<IMoveDetectionResultExporter>&& resultExporter) :
+	std::vector<std::unique_ptr<IMoveDetectionResultExporter>>&& resultExporters) :
 	_processingResultsBuffer{ processingResultsBuffer },
 	_matToGui{ std::move(matToGui) },
 	_pContext{ pContext },
-	_resultExporter{ std::move(resultExporter) }
+	_resultExporters{ std::move(resultExporters) }
 {
 }
 
@@ -41,22 +41,21 @@ void CalculationResultManager::StartResultsProcessing()
 						else
 							_drawingBuffer = result.pRawFrame->GetMatCopy();
 						MatDrawer::DrawObjectsOnMat(_drawingBuffer, result.moveDetectionResult);
-					std::unique_lock lock(*_matToGui._pMtx);
+						std::unique_lock lock(*_matToGui._pMtx);
 						*_matToGui._pVal = _drawingBuffer.clone();
 						lock.unlock();
 					}
-					if (!_resultExporter)
-						continue;
-					_resultExporter->ExportData(result);
+					for (const auto& exporter : _resultExporters)
+						exporter->ExportData(result);
 				}
 				asyncResultsFromProducers.clear();
 #ifdef STOPWATCH
 				std::cout << "Processing time loop: " << watch.ElapsedMilliseconds() << std::endl;
 				watch.Reset();
 #endif
-				}
-			}, _workingThreadStopToken.get_token());
-	}
+			}
+		}, _workingThreadStopToken.get_token());
+}
 
 void CalculationResultManager::StopResultsProcessing()
 {

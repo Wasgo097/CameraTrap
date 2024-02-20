@@ -26,7 +26,6 @@ MoveDetectionResult SimpleMoveDetectorProcessor::Process()
 		if (_settings.minObjectArea > 0 and rect.area() >= _settings.minObjectArea)
 			_tempObjects.emplace_back(rect);
 	}
-	ManageTempObjects();
 	for (auto&& object : _tempObjects)
 		if (!_result.moveDetectionResult.PushNewObject(std::move(object)))
 			break;
@@ -44,16 +43,4 @@ void SimpleMoveDetectorProcessor::ClearInternalBuffers()
 	_result.moveDetectionResult.ClearAllObjects();
 	_contours.clear();
 	_tempObjects.clear();
-}
-
-void SimpleMoveDetectorProcessor::ManageTempObjects()
-{
-	//if (_settings.minObjectArea > 0)
-	//{
-	//	auto rangeToRemove{ std::ranges::remove_if(_tempObjects, [this](const auto& rect)
-	//		{
-	//			return rect.area() < _settings.minObjectArea;
-	//		}) };
-	//	_tempObjects.erase(rangeToRemove.begin(), rangeToRemove.end());
-	//}
 }
