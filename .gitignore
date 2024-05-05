@@ -14,3 +14,4 @@ Client/Exporter/x64
 Client/Controller/x64
 build-Server-Desktop_Qt_6_3_1_MSVC2019_64bit-Debug
 build-Server-Desktop_Qt_6_3_1_MSVC2019_64bit-Release
+/Client/Client/Output
