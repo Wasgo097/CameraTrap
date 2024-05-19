@@ -27,5 +27,6 @@ bool FastLowBrightnessCompensationProcessor::CheckProcessingConditions() const
 	auto timeTPoint{ std::chrono::system_clock::to_time_t(std::chrono::time_point<std::chrono::system_clock>(_result.pRawFrame->GetTime().time_since_epoch())) };
 	std::tm tmTime;
 	localtime_s(&tmTime, &timeTPoint);
-	return tmTime.tm_hour >= 20 or tmTime.tm_hour < 6;
+	cv::Scalar meanValue = cv::mean(_result.pRawFrame->GetMatCRef());
+	return (tmTime.tm_hour >= 20 or tmTime.tm_hour < 6) and meanValue[0] < 30.0;
 }
