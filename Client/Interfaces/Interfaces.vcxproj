@@ -148,11 +148,16 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="IDetectionResultSerializer.h" />
     <ClInclude Include="IFrame.h" />
+    <ClInclude Include="IMoveDetectionResultExporter.h" />
     <ClInclude Include="IObservable.h" />
     <ClInclude Include="IObserver.h" />
     <ClInclude Include="IProcessor.h" />
     <ClInclude Include="IVideoSource.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -10,7 +10,8 @@ Client/VideoSource/x64
 Client/Processor/x64
 Client/Manager/x64
 Client/DataVisualizer/x64
-Client/Export/x64
+Client/Exporter/x64
 Client/Controller/x64
 build-Server-Desktop_Qt_6_3_1_MSVC2019_64bit-Debug
 build-Server-Desktop_Qt_6_3_1_MSVC2019_64bit-Release
+/Client/Client/Output

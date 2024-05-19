@@ -2,5 +2,8 @@
   "videoSourceSettingsPaths": [],
   "differenceProcessorSettingsPath": "",
   "moveDetectorProcessorSettingsPath": "",
-  "settingsRootDir": ""
+  "lowBrightnessCompensationProcessorSettingsPath": "",
+  "settingsRootDir": "",
+  "exporterSettingsPaths": [],
+  "serializationType": "Simple"
 }

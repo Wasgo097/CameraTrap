@@ -30,6 +30,9 @@
     <ClInclude Include="ProcessorsManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="CalculationResultManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="VideoSourcesManager.cpp">
@@ -45,6 +48,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ProcessorsManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CalculationResultManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

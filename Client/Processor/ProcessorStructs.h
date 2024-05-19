@@ -1,14 +1,21 @@
 #pragma once
 #include "Utilities/Objects.h"
+#include "Interfaces/IFrame.h"
 #include <opencv2/core/mat.hpp>
-struct DifferenceResult
+#include <optional>
+struct ProcessorResultBase
 {
-	cv::Mat rawMat;
+	std::shared_ptr<IFrame> pRawFrame;
+};
+struct LowBrightnessCompensationResult :public ProcessorResultBase
+{
+	std::optional<cv::Mat> lowBrightnessCompensationResultOpt;
+};
+struct DifferenceResult :public LowBrightnessCompensationResult
+{
 	cv::Mat differenceResult;
 };
-
-struct MoveDetectionResult
+struct MoveDetectionResult :public LowBrightnessCompensationResult
 {
-	cv::Mat rawMat;
 	Objects moveDetectionResult;
 };

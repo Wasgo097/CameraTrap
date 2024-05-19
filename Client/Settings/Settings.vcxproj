@@ -153,12 +153,15 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CameraVideoSourceSettings.h" />
-    <ClInclude Include="DifferenceProcessorSettings.h" />
+    <ClInclude Include="FileExporterSettings.h" />
+    <ClInclude Include="SimpleDifferenceProcessorSettings.h" />
     <ClInclude Include="FileVideoSourceSettings.h" />
     <ClInclude Include="MainSettings.h" />
-    <ClInclude Include="MoveDetectorProcessorSettings.h" />
+    <ClInclude Include="SimpleMoveDetectorProcessorSettings.h" />
     <ClInclude Include="OpenCVStructsToJson.h" />
     <ClInclude Include="SettingsBuilder.h" />
+    <ClInclude Include="TcpExporterSettings.h" />
+    <ClInclude Include="UdpExporterSettings.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SettingsBuilder.cpp" />

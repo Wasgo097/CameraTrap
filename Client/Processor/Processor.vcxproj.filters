@@ -18,13 +18,13 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="DifferenceProcessor.h">
+    <ClInclude Include="SimpleDifferenceProcessor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ProcessorBuilder.h">
+    <ClInclude Include="ProcessorFactory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MoveDetectorProcessor.h">
+    <ClInclude Include="SimpleMoveDetectorProcessor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ProcessorHelper.h">
@@ -33,15 +33,27 @@
     <ClInclude Include="ProcessorStructs.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="FastMoveDetectorProcessor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FastLowBrightnessCompensationProcessor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="DifferenceProcessor.cpp">
+    <ClCompile Include="SimpleDifferenceProcessor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ProcessorBuilder.cpp">
+    <ClCompile Include="SimpleMoveDetectorProcessor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MoveDetectorProcessor.cpp">
+    <ClCompile Include="FastMoveDetectorProcessor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ProcessorFactory.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FastLowBrightnessCompensationProcessor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -1,7 +1,9 @@
 #pragma once
+#include <atomic>
 struct ClientAppContext
 {
-	bool quit{ false };
-	size_t drawingIndex{ 0 };
+	std::atomic_bool quit{ false };
+	std::atomic_bool drawWindow{ true };
+	std::atomic_size_t drawingIndex{ 0 };
 	const size_t maxDrawingIndex{ 0 };
 };

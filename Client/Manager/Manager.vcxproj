@@ -132,6 +132,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="CalculationManager.h" />
+    <ClInclude Include="CalculationResultManager.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="ProcessorsManager.h" />
     <ClInclude Include="VideoSourcesManager.h" />
@@ -139,6 +140,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CalculationManager.cpp" />
+    <ClCompile Include="CalculationResultManager.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="ProcessorsManager.cpp" />
     <ClCompile Include="VideoSourcesManager.cpp" />

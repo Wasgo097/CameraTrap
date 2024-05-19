@@ -7,16 +7,16 @@ class MultipleObservableBasic : public IObservable<NotificationParamType>
 {
 public:
 	virtual ~MultipleObservableBasic() = default;
-	void AddNewObserver(std::shared_ptr<IObserver<NotificationParamType>> newObserver)override
+	void AddNewObserver(std::shared_ptr<IObserver<NotificationParamType>> pNewObserver)override
 	{
-		_observers.emplace(std::move(newObserver));
+		_observers.emplace(std::move(pNewObserver));
 	}
-	void RemoveObserver(IObserver<NotificationParamType>* observerToRemove) override
+	void RemoveObserver(IObserver<NotificationParamType>* pObserverToRemove) override
 	{
-		auto toRemove{ std::ranges::find_if(_observers,[observerToRemove](const std::weak_ptr<IObserver<NotificationParamType>>& current)
+		auto toRemove{ std::ranges::find_if(_observers,[pObserverToRemove](const std::weak_ptr<IObserver<NotificationParamType>>& current)
 			{
 				if (auto ptr{current.lock()})
-				return ptr == observerToRemove;
+				return ptr == pObserverToRemove;
 			}) };
 		if (toRemove != _observers.end())
 			_observers.erase(toRemove);

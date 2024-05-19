@@ -15,6 +15,4 @@ protected:
 	cv::Mat _bufferGray;
 	unsigned _frameNumber{ 0u };
 	FileVideoSourceSettings _settings;
-
 };
-

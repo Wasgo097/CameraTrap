@@ -19,19 +19,27 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ExporterBuilder.h" />
+    <ClInclude Include="FileExporter.h" />
+    <ClInclude Include="SimpleDetectionResultSerializer.h" />
+    <ClInclude Include="TcpExporter.h" />
+    <ClInclude Include="UdpExporter.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="ExporterBuilder.cpp" />
+    <ClCompile Include="FileExporter.cpp" />
+    <ClCompile Include="SimpleDetectionResultSerializer.cpp" />
+    <ClCompile Include="TcpExporter.cpp" />
+    <ClCompile Include="UdpExporter.cpp" />
+  </ItemGroup>
+  <ItemGroup>
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="FrameExporter.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="FrameExporter.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{3a797e1c-d38d-4893-8d92-f327e2993157}</ProjectGuid>
-    <RootNamespace>Export</RootNamespace>
+    <ProjectGuid>{90147196-83ea-426c-a007-eb1ac6c8cde7}</ProjectGuid>
+    <RootNamespace>Exporter</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -123,6 +131,7 @@
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <AdditionalIncludeDirectories>$(SolutionDir);$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4996</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -142,6 +151,7 @@
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <AdditionalIncludeDirectories>$(SolutionDir);$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4996</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -154,11 +164,15 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
     <Import Project="..\packages\MyOpenCv.4.7.0\build\native\MyOpenCv.targets" Condition="Exists('..\packages\MyOpenCv.4.7.0\build\native\MyOpenCv.targets')" />
+    <Import Project="..\packages\MyASIOLib.1.0.0\build\native\MyASIOLib.targets" Condition="Exists('..\packages\MyASIOLib.1.0.0\build\native\MyASIOLib.targets')" />
+    <Import Project="..\packages\nlohmann.json.3.11.2\build\native\nlohmann.json.targets" Condition="Exists('..\packages\nlohmann.json.3.11.2\build\native\nlohmann.json.targets')" />
   </ImportGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\MyOpenCv.4.7.0\build\native\MyOpenCv.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MyOpenCv.4.7.0\build\native\MyOpenCv.targets'))" />
+    <Error Condition="!Exists('..\packages\MyASIOLib.1.0.0\build\native\MyASIOLib.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MyASIOLib.1.0.0\build\native\MyASIOLib.targets'))" />
+    <Error Condition="!Exists('..\packages\nlohmann.json.3.11.2\build\native\nlohmann.json.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\nlohmann.json.3.11.2\build\native\nlohmann.json.targets'))" />
   </Target>
 </Project>

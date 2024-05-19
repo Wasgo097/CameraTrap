@@ -147,16 +147,20 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="DifferenceProcessor.h" />
-    <ClInclude Include="MoveDetectorProcessor.h" />
-    <ClInclude Include="ProcessorBuilder.h" />
+    <ClInclude Include="FastMoveDetectorProcessor.h" />
+    <ClInclude Include="FastLowBrightnessCompensationProcessor.h" />
+    <ClInclude Include="SimpleDifferenceProcessor.h" />
+    <ClInclude Include="SimpleMoveDetectorProcessor.h" />
+    <ClInclude Include="ProcessorFactory.h" />
     <ClInclude Include="ProcessorHelper.h" />
     <ClInclude Include="ProcessorStructs.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="DifferenceProcessor.cpp" />
-    <ClCompile Include="MoveDetectorProcessor.cpp" />
-    <ClCompile Include="ProcessorBuilder.cpp" />
+    <ClCompile Include="FastMoveDetectorProcessor.cpp" />
+    <ClCompile Include="FastLowBrightnessCompensationProcessor.cpp" />
+    <ClCompile Include="ProcessorFactory.cpp" />
+    <ClCompile Include="SimpleDifferenceProcessor.cpp" />
+    <ClCompile Include="SimpleMoveDetectorProcessor.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

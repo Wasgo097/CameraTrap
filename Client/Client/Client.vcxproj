@@ -146,6 +146,9 @@
     <ProjectReference Include="..\Controller\Controller.vcxproj">
       <Project>{b5e51acd-6508-403c-9683-e5c3b9a2de20}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\Exporter\Exporter.vcxproj">
+      <Project>{90147196-83ea-426c-a007-eb1ac6c8cde7}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\Manager\Manager.vcxproj">
       <Project>{aa0c145d-6664-459d-a0f5-01f35f562a9a}</Project>
     </ProjectReference>
@@ -166,6 +169,7 @@
   <ImportGroup Label="ExtensionTargets">
     <Import Project="..\packages\MyOpenCv.4.7.0\build\native\MyOpenCv.targets" Condition="Exists('..\packages\MyOpenCv.4.7.0\build\native\MyOpenCv.targets')" />
     <Import Project="..\packages\nlohmann.json.3.11.2\build\native\nlohmann.json.targets" Condition="Exists('..\packages\nlohmann.json.3.11.2\build\native\nlohmann.json.targets')" />
+    <Import Project="..\packages\MyASIOLib.1.0.0\build\native\MyASIOLib.targets" Condition="Exists('..\packages\MyASIOLib.1.0.0\build\native\MyASIOLib.targets')" />
   </ImportGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
@@ -173,5 +177,6 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\MyOpenCv.4.7.0\build\native\MyOpenCv.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MyOpenCv.4.7.0\build\native\MyOpenCv.targets'))" />
     <Error Condition="!Exists('..\packages\nlohmann.json.3.11.2\build\native\nlohmann.json.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\nlohmann.json.3.11.2\build\native\nlohmann.json.targets'))" />
+    <Error Condition="!Exists('..\packages\MyASIOLib.1.0.0\build\native\MyASIOLib.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MyASIOLib.1.0.0\build\native\MyASIOLib.targets'))" />
   </Target>
 </Project>
