@@ -149,14 +149,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CameraVideoSource.h" />
-    <ClInclude Include="FileVideoSource.h" />
     <ClInclude Include="FrameBase.h" />
+    <ClInclude Include="RtspVideoSource.h" />
     <ClInclude Include="VideoSourceBuilder.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CameraVideoSource.cpp" />
-    <ClCompile Include="FileVideoSource.cpp" />
     <ClCompile Include="FrameBase.cpp" />
+    <ClCompile Include="RtspVideoSource.cpp" />
     <ClCompile Include="VideoSourceBuilder.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

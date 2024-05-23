@@ -33,9 +33,6 @@
     <ClInclude Include="SimpleDifferenceProcessorSettings.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="FileVideoSourceSettings.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="SimpleMoveDetectorProcessorSettings.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -46,6 +43,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="FileExporterSettings.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RtspVideoSourceSettings.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

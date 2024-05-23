@@ -1,4 +1,5 @@
 #define APP
+//#define VIDEOSOURCE
 //#define UDPTEST
 //#define UDPTEST2
 //#define TCPTEST
@@ -11,6 +12,37 @@ int main()
 	return app.main();
 }
 #endif
+#ifdef  VIDEOSOURCE
+#include <opencv2/opencv.hpp>
+int main()
+{
+	std::string rtsp_url = "rtsp://login:password@ip:554/variants";//554 is default rtsp port
+
+	cv::VideoCapture cap(rtsp_url);
+	if (!cap.isOpened())
+	{
+		std::cerr << "Error: Could not open RTSP stream." << std::endl;
+		return -1;
+	}
+	cv::Mat frame;
+	while (true)
+	{
+		cap >> frame;
+		if (frame.empty())
+		{
+			std::cerr << "Error: Could not read frame." << std::endl;
+			break;
+		}
+		cv::imshow("RTSP Stream", frame);
+		if (cv::waitKey(30) == 'q')
+			break;
+	}
+	cap.release();
+	cv::destroyAllWindows();
+	return 0;
+}
+#endif //  VIDEOSOURCE
+
 #ifdef IMGPROCTEST
 #include <opencv2/opencv.hpp>
 int main()
@@ -84,7 +116,7 @@ void sendMatOverUDP() {
 		auto image{ cv::imread("D:\\Download\\362629304_935410660863688_7432816960704923792_n.jpg", cv::IMREAD_GRAYSCALE) };
 
 		auto rows{ image.rows }, cols{ image.cols }, type{ image.type() };
-		std::string header{std::format("{};{};{}", rows, cols, type)};
+		std::string header{ std::format("{};{};{}", rows, cols, type) };
 		auto size{ sender_socket.send_to(asio::buffer(header), endpoint) };
 		std::vector<uchar> buffer;
 		if (image.isContinuous())
@@ -146,7 +178,7 @@ cv::Mat receiveMatOverUDP() {
 }
 int main() {
 	try {
-		std::thread senderThr{sendMatOverUDP};
+		std::thread senderThr{ sendMatOverUDP };
 		auto ftr{ std::async(std::launch::async,&receiveMatOverUDP) };
 		if (auto receivedImage{ ftr.get() }; !receivedImage.empty()) {
 			cv::imshow("Received Image", receivedImage);

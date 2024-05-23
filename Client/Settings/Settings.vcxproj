@@ -154,8 +154,8 @@
   <ItemGroup>
     <ClInclude Include="CameraVideoSourceSettings.h" />
     <ClInclude Include="FileExporterSettings.h" />
+    <ClInclude Include="RtspVideoSourceSettings.h" />
     <ClInclude Include="SimpleDifferenceProcessorSettings.h" />
-    <ClInclude Include="FileVideoSourceSettings.h" />
     <ClInclude Include="MainSettings.h" />
     <ClInclude Include="SimpleMoveDetectorProcessorSettings.h" />
     <ClInclude Include="OpenCVStructsToJson.h" />

@@ -1,5 +1,6 @@
 #include "VideoSourceBuilder.h"
 #include "CameraVideoSource.h"
+#include "RtspVideoSource.h"
 #include <filesystem>
 #include <iostream>
 #include <fstream>
@@ -12,13 +13,13 @@ std::shared_ptr<IVideoSource> VideoSourceBuilder::BuildVideoSource(const std::st
 {
 	std::shared_ptr<IVideoSource> result;
 	if (auto cameraVideoSourceSettings{ _settingsBuilder.GetSettingsFromFile<CameraVideoSourceSettings>(path) })
-	{
 		result = std::make_shared<CameraVideoSource>(*cameraVideoSourceSettings);
-	}
+	else if (auto rtspVideoSourceSettings{ _settingsBuilder.GetSettingsFromFile<RtspVideoSourceSettings>(path) })
+		result = std::make_shared<RtspVideoSource>(*rtspVideoSourceSettings);
 	return result;
 }
 
-std::vector<std::shared_ptr<IVideoSource>>  VideoSourceBuilder::BuildVideoSources(const std::vector<std::string>& paths) const
+std::vector<std::shared_ptr<IVideoSource>> VideoSourceBuilder::BuildVideoSources(const std::vector<std::string>& paths) const
 {
 	std::vector<std::shared_ptr<IVideoSource>> result;
 	result.reserve(paths.size());

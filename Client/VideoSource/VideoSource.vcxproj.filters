@@ -27,7 +27,7 @@
     <ClInclude Include="FrameBase.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="FileVideoSource.h">
+    <ClInclude Include="RtspVideoSource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -41,7 +41,7 @@
     <ClCompile Include="VideoSourceBuilder.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="FileVideoSource.cpp">
+    <ClCompile Include="RtspVideoSource.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
